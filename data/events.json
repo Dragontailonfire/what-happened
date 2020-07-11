@@ -1,0 +1,22 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "This is a test event",
+      "startDate": "21 Apr 2020",
+      "createdDate": "Sun, 24 May 2020 09:08:26 GMT"
+    },
+    {
+      "id": 2,
+      "title": "This is another test event",
+      "startDate": "21 Apr 2008",
+      "createdDate": "Sun, 24 May 2020 09:08:26 GMT"
+    },
+    {
+      "id": 3,
+      "title": "This is yet another test event",
+      "startDate": "2 Apr 2020",
+      "createdDate": "Sun, 24 May 2020 09:08:26 GMT"
+    }
+  ]
+}
