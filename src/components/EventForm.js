@@ -142,7 +142,7 @@ export const EventForm = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
-        spacing={1}
+        spacing={2}
         container
         direction="row"
         justify="space-between"
@@ -152,11 +152,8 @@ export const EventForm = (props) => {
           <Controller
             as={TextField}
             fullWidth
-            InputProps={{
-              disableUnderline: true,
-            }}
-            color="primary"
-            variant="filled"
+            color="secondary"
+            variant="outlined"
             label={
               errors.title && errors.title.type === "required"
                 ? "Give a title to this Event"
@@ -177,23 +174,21 @@ export const EventForm = (props) => {
             }
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
               as={KeyboardDatePicker}
               name="startDate"
               control={control}
               autoOk
+              fullWidth
               rules={{ required: true }}
               error={errors.startDate ? true : false}
               size="small"
-              InputProps={{
-                disableUnderline: true,
-              }}
-              inputVariant="filled"
+              inputVariant="outlined"
               variant="inline"
               format="dd/MM/yyyy"
-              color="primary"
+              color="secondary"
               id="startDate"
               label="Start date"
               KeyboardButtonProps={{
@@ -202,19 +197,17 @@ export const EventForm = (props) => {
             />
           </MuiPickersUtilsProvider>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           {eventEndedSwitch && (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Controller
                 as={KeyboardDatePicker}
                 name="endDate"
+                fullWidth
                 control={control}
                 autoOk
-                InputProps={{
-                  disableUnderline: true,
-                }}
                 size="small"
-                inputVariant="filled"
+                inputVariant="outlined"
                 rules={{
                   required: true,
                   validate: validateEndDate,
@@ -315,14 +308,11 @@ export const EventForm = (props) => {
           <Controller
             as={TextField}
             control={control}
-            color="primary"
+            color="secondary"
             size="small"
             fullWidth
-            InputProps={{
-              disableUnderline: true,
-            }}
-            multiline
-            variant="filled"
+            //multiline
+            variant="outlined"
             name="description"
             id="description"
             label={
@@ -350,7 +340,7 @@ export const EventForm = (props) => {
                 filterSelectedOptions
                 selectOnFocus
                 limitTags={3}
-                ChipProps={{ color: "secondary", size: "small" }}
+                ChipProps={{ color: "primary", size: "small" }}
                 /* ChipProps={(eventTagOptions) => {
                     let existingTag = eventTagOptions.filter(
                       ((opt) => color: opt.colour)
@@ -389,12 +379,9 @@ export const EventForm = (props) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    variant="filled"
+                    variant="outlined"
                     label="Tags"
-                    /* InputProps={{
-                        disableUnderline: true,
-                      }} */
-                    color="primary"
+                    color="secondary"
                     size="medium"
                     placeholder="Assign tags"
                   />
@@ -419,10 +406,11 @@ export const EventForm = (props) => {
             <Button
               variant="contained"
               color="secondary"
+              disableElevation
               //style={{ borderRadius: 10 }}
               id="cancel"
               type="reset"
-              size="medium"
+              size="large"
               onClick={handleCancelEdit}
               startIcon={<CancelIcon />}
             >
@@ -432,10 +420,11 @@ export const EventForm = (props) => {
             formState.dirty && (
               <Button
                 variant="text"
+                disableElevation
                 color="secondary"
                 id="clear"
                 //style={{ borderRadius: 10 }}
-                size="medium"
+                size="large"
                 type="reset"
                 onClick={() => {
                   reset();
@@ -450,11 +439,12 @@ export const EventForm = (props) => {
         <Grid item xs="auto">
           <Button
             hidden={!formState.dirty}
-            //style={{ borderRadius: 10 }}
+            disableElevation
+            //style={{ borderRadius: 5 }}
             variant="contained"
             color="primary"
             name="saveEvent"
-            size="medium"
+            size="large"
             id="saveEvent"
             type="submit"
             startIcon={props.edit ? <UpdateIcon /> : <SaveIcon />}

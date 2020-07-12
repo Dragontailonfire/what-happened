@@ -11,7 +11,7 @@ export default function AddEventDialog(props) {
   });
 
   const onSubmit = (data) => {
-    alert(data.username + " - " + data.password + " - " + data.phoneNumber);
+    alert("Username: " + data.username + " - Password: " + data.password);
   };
 
   return (
@@ -35,11 +35,8 @@ export default function AddEventDialog(props) {
             <Grid item xs={12}>
               <Controller
                 as={TextField}
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                color="primary"
-                variant="filled"
+                color="secondary"
+                variant="outlined"
                 label="Username"
                 name="username"
                 margin="none"
@@ -57,21 +54,17 @@ export default function AddEventDialog(props) {
               <Controller
                 as={TextField}
                 control={control}
-                color="primary"
+                color="secondary"
+                type="password"
                 fullWidth
                 InputProps={{
-                  disableUnderline: true,
                   type: "password",
                 }}
-                multiline
-                variant="filled"
+                variant="outlined"
                 name="password"
                 id="password"
                 label="Password"
               />
-            </Grid>
-            <Grid item xs={12}>
-              <input type="password" name="phoneNumber" ref={register} />
             </Grid>
           </Grid>
         </DialogContent>

@@ -9,7 +9,7 @@ import CardActions from "@material-ui/core/CardActions";
 export default function EventItemLoader(key) {
   const useStyles = makeStyles((theme) => ({
     root: {
-      borderRadius: 0,
+      borderRadius: 5,
       borderColor: theme.palette.background.default,
     },
     titleSkeleton: {
@@ -41,7 +41,7 @@ export default function EventItemLoader(key) {
       <Card
         id={key}
         className={classes.root}
-        variant="elevation"
+        variant="outlined"
         elevation={15}
       >
         <CardHeader

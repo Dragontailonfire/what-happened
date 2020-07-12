@@ -12,7 +12,7 @@ import { green, blueGrey, red } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(5),
-    borderRadius: 0,
+    borderRadius: 5,
   },
 }));
 
@@ -39,7 +39,7 @@ export default function NoEventsPanel(props) {
 
   if (props.type === "archived") {
     return (
-      <Paper component="div" className={classes.root} elevation={15}>
+      <Paper component="div" className={classes.root} elevation={0}>
         <Grid
           spacing={2}
           container
@@ -63,7 +63,7 @@ export default function NoEventsPanel(props) {
   }
   if (props.type === "favourite") {
     return (
-      <Paper component="div" className={classes.root} elevation={15}>
+      <Paper component="div" className={classes.root} elevation={0}>
         <Grid
           spacing={2}
           container
@@ -87,7 +87,7 @@ export default function NoEventsPanel(props) {
   }
   if (props.type === "saved") {
     return (
-      <Paper component="div" className={classes.root} elevation={15}>
+      <Paper component="div" className={classes.root} elevation={0}>
         <Grid
           spacing={2}
           container
@@ -107,7 +107,7 @@ export default function NoEventsPanel(props) {
   }
   if (props.type === "completed") {
     return (
-      <Paper component="div" className={classes.root} elevation={15}>
+      <Paper component="div" className={classes.root} elevation={0}>
         <Grid
           spacing={2}
           container

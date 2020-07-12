@@ -15,6 +15,7 @@
     "aphrodite": "^2.4.0",
     "date-fns": "^2.14.0",
     "lodash": "^4.17.15",
+    "notistack": "^0.9.17",
     "react": "^16.13.1",
     "react-animations": "^1.0.0",
     "react-dom": "^16.13.1",

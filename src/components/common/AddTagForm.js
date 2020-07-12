@@ -65,10 +65,10 @@ export default function AddTagForm() {
             id="addTagText"
             name="tagName"
             size="small"
+            color="secondary"
             fullWidth
-            variant="filled"
+            variant="outlined"
             InputProps={{
-              disableUnderline: true,
               endAdornment: (
                 <InputAdornment position="end">
                   {formState.dirty && errors.tagName ? (
@@ -83,7 +83,7 @@ export default function AddTagForm() {
                     </IconButton>
                   ) : (
                     <IconButton type="submit">
-                      <AddIcon color="primary" fontSize="large" />
+                      <AddIcon color="secondary" fontSize="large" />
                     </IconButton>
                   )}
                 </InputAdornment>
