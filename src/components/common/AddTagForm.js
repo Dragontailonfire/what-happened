@@ -79,11 +79,11 @@ export default function AddTagForm() {
                         clearError();
                       }}
                     >
-                      <ClearIcon color="error" fontSize="large" />
+                      <ClearIcon color="error" />
                     </IconButton>
                   ) : (
                     <IconButton type="submit">
-                      <AddIcon color="secondary" fontSize="large" />
+                      <AddIcon color="secondary" />
                     </IconButton>
                   )}
                 </InputAdornment>

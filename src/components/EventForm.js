@@ -25,7 +25,6 @@ import SaveIcon from "@material-ui/icons/SaveTwoTone";
 import UpdateIcon from "@material-ui/icons/UpdateTwoTone";
 import ClearIcon from "@material-ui/icons/ClearRounded";
 import isAfter from "date-fns/isBefore";
-import Switch from "@material-ui/core/Switch";
 
 export const EventForm = (props) => {
   const {
@@ -198,35 +197,34 @@ export const EventForm = (props) => {
           </MuiPickersUtilsProvider>
         </Grid>
         <Grid item xs={12}>
-          {eventEndedSwitch && (
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Controller
-                as={KeyboardDatePicker}
-                name="endDate"
-                fullWidth
-                control={control}
-                autoOk
-                size="small"
-                inputVariant="outlined"
-                rules={{
-                  required: true,
-                  validate: validateEndDate,
-                }}
-                error={errors.endDate ? true : false}
-                helperText={errors.endDate && "Event start is after this date"}
-                variant="inline"
-                format="dd/MM/yyyy"
-                color="secondary"
-                id="endDate"
-                label="End date"
-                KeyboardButtonProps={{
-                  "aria-label": "change end date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          )}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Controller
+              disabled={!eventEndedSwitch}
+              as={KeyboardDatePicker}
+              name="endDate"
+              fullWidth
+              control={control}
+              autoOk
+              size="small"
+              inputVariant="outlined"
+              rules={{
+                required: true,
+                validate: validateEndDate,
+              }}
+              error={errors.endDate ? true : false}
+              helperText={errors.endDate && "Event start is after this date"}
+              variant="inline"
+              format="dd/MM/yyyy"
+              color="secondary"
+              id="endDate"
+              label="End date"
+              KeyboardButtonProps={{
+                "aria-label": "change end date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
         </Grid>
-        <Grid item xs={7}>
+        <Grid hidden item xs={12}>
           <FormControl component="fieldset">
             <FormLabel component="legend">Counter format</FormLabel>
             <FormGroup row>
@@ -272,36 +270,38 @@ export const EventForm = (props) => {
             </FormGroup>
           </FormControl>
         </Grid>
-        <Grid item xs={5}>
-          <FormControl margin="normal" component="fieldset">
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Controller
-                    as={Switch}
-                    type="checkbox"
-                    control={control}
-                    name="eventEnded"
-                    id="eventEnded"
-                    color="secondary"
-                  />
-                }
-                label="End event"
-              />
-              <FormControlLabel
-                control={
-                  <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
-                    name="annualEvent"
-                    id="annualEvent"
-                    color="secondary"
-                  />
-                }
-                label="Annual Event"
-              />
-            </FormGroup>
+        <Grid item xs="auto">
+          <FormControl margin="dense" component="fieldset">
+            <FormControlLabel
+              control={
+                <Controller
+                  as={Checkbox}
+                  type="checkbox"
+                  control={control}
+                  name="eventEnded"
+                  id="eventEnded"
+                  color="secondary"
+                />
+              }
+              label="End event"
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs="auto">
+          <FormControl margin="dense" component="fieldset">
+            <FormControlLabel
+              control={
+                <Controller
+                  as={Checkbox}
+                  type="checkbox"
+                  control={control}
+                  name="annualEvent"
+                  id="annualEvent"
+                  color="secondary"
+                />
+              }
+              label="Annual Event"
+            />
           </FormControl>
         </Grid>
         <Grid item xs={12}>
@@ -382,7 +382,7 @@ export const EventForm = (props) => {
                     variant="outlined"
                     label="Tags"
                     color="secondary"
-                    size="medium"
+                    size="small"
                     placeholder="Assign tags"
                   />
                 )}
@@ -406,11 +406,11 @@ export const EventForm = (props) => {
             <Button
               variant="contained"
               color="secondary"
-              disableElevation
+              //disableElevation
               //style={{ borderRadius: 10 }}
               id="cancel"
               type="reset"
-              size="large"
+              size="medium"
               onClick={handleCancelEdit}
               startIcon={<CancelIcon />}
             >
@@ -420,11 +420,11 @@ export const EventForm = (props) => {
             formState.dirty && (
               <Button
                 variant="text"
-                disableElevation
+                //disableElevation
                 color="secondary"
                 id="clear"
                 //style={{ borderRadius: 10 }}
-                size="large"
+                size="medium"
                 type="reset"
                 onClick={() => {
                   reset();
@@ -439,12 +439,12 @@ export const EventForm = (props) => {
         <Grid item xs="auto">
           <Button
             hidden={!formState.dirty}
-            disableElevation
+            //disableElevation
             //style={{ borderRadius: 5 }}
             variant="contained"
             color="primary"
             name="saveEvent"
-            size="large"
+            size="medium"
             id="saveEvent"
             type="submit"
             startIcon={props.edit ? <UpdateIcon /> : <SaveIcon />}
@@ -456,3 +456,37 @@ export const EventForm = (props) => {
     </form>
   );
 };
+
+//Use with counter components
+/* <Grid item xs={12}>
+          <FormControl margin="dense" component="fieldset">
+            <FormGroup row>
+              <FormControlLabel
+                control={
+                  <Controller
+                    as={Switch}
+                    type="checkbox"
+                    control={control}
+                    name="eventEnded"
+                    id="eventEnded"
+                    color="secondary"
+                  />
+                }
+                label="End event"
+              />
+              <FormControlLabel
+                control={
+                  <Controller
+                    as={Checkbox}
+                    type="checkbox"
+                    control={control}
+                    name="annualEvent"
+                    id="annualEvent"
+                    color="secondary"
+                  />
+                }
+                label="Annual Event"
+              />
+            </FormGroup>
+          </FormControl>
+        </Grid> */

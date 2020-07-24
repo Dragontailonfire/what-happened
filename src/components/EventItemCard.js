@@ -34,7 +34,7 @@ import bounceOut from "react-animations/lib/bounceOut";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    borderRadius: 5,
+    borderRadius: 15,
     transition: "0.1s",
     "&:hover": {
       //transform: "translateY(-10px)",
@@ -162,8 +162,8 @@ export const EventItemCard = (props) => {
         className={clsx(classes.root, {
           [classes.editMode]: expanded,
         })}
-        variant="outlined"
-        elevation={0}
+        variant="elevation"
+        //elevation={10}
       >
         <CardHeader
           title={

@@ -15,13 +15,13 @@ export const EventModificationPanel = () => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      padding: theme.spacing(1),
-      borderRadius: 5,
+      padding: theme.spacing(2),
+      borderRadius: 15,
     },
   }));
   const classes = useStyles();
   return (
-    <Paper component="div" className={classes.root} elevation={0}>
+    <Paper component="div" className={classes.root} elevation={20}>
       <EventForm {...eventItem[0]} />
     </Paper>
   );

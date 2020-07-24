@@ -1,15 +1,26 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { common, grey, blueGrey, purple, red } from "@material-ui/core/colors";
+import {
+  common,
+  grey,
+  blueGrey,
+  purple,
+  red,
+  cyan,
+  blue,
+  yellow,
+} from "@material-ui/core/colors";
 
 export const lightTheme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#4cba71",
+      main: blue[900],
+      //main: "#4cba71",
       //main: "#9745ff",
     },
     secondary: {
-      main: "#9745ff",
+      main: yellow[900],
+      //main: "#9745ff",
       //main: "#4cba71",
     },
     background: { default: grey[200], paper: common["white"] }, //common["white"]
@@ -21,7 +32,7 @@ export const lightTheme = createMuiTheme({
       disableRipple: false,
     },
     MuiButton: {
-      disableElevation: true,
+      //disableElevation: true,
     },
   },
   overrides: {
@@ -47,17 +58,17 @@ export const lightTheme = createMuiTheme({
     },
     MuiTextField: {
       root: {
-        '& input:valid + fieldset': {
+        "& input:valid + fieldset": {
           borderColor: grey[200],
           borderWidth: 2,
         },
-        '& input:invalid + fieldset': {
-          borderColor: 'red',
+        "& input:invalid + fieldset": {
+          borderColor: "red",
           borderWidth: 2,
         },
-        '& input:valid:focus + fieldset': {
+        "& input:valid:focus + fieldset": {
           borderLeftWidth: 10,
-          padding: '4px !important', // override inline-style
+          padding: "4px !important", // override inline-style
         },
         borderRadius: 5,
         //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
@@ -74,11 +85,11 @@ export const darkTheme = createMuiTheme({
     type: "dark",
     primary: {
       //main: "#4cba71",
-      main: "#9745ff",
+      main: blue[900],
     },
     secondary: {
       //main: "#9745ff",
-      main: "#4cba71",
+      main: yellow[900],
     },
     //background: { default: grey["A400"], paper: grey[800] },
     background: { default: blueGrey[900], paper: blueGrey[800] },
@@ -89,14 +100,14 @@ export const darkTheme = createMuiTheme({
       disableRipple: false,
     },
     MuiButton: {
-      disableElevation: true,
+      //disableElevation: true,
     },
   },
   overrides: {
     MuiButton: {
       contained: {
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        //borderRadius: 0,
+        borderRadius: 20,
         //color: "black",
         //padding: "0 30px",
       },
@@ -115,23 +126,23 @@ export const darkTheme = createMuiTheme({
     },
     MuiTextField: {
       root: {
-        '& input:valid + fieldset': {
+        /* "& input:valid + fieldset": {
           borderColor: blueGrey[900],
           borderWidth: 2,
         },
-        '& input:invalid + fieldset': {
-          borderColor: 'red',
+        "& input:invalid + fieldset": {
+          borderColor: "red",
           borderWidth: 2,
         },
-        '& input:valid:focus + fieldset': {
+        "& input:valid:focus + fieldset": {
           borderLeftWidth: 10,
-          padding: '4px !important', // override inline-style
-        },
+          padding: "4px !important", // override inline-style
+        }, */
         borderRadius: 5,
         //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
         background: blueGrey[900],
-        //borderColor:blueGrey[900],
-        //disableUnderline: false,
+        //borderColor: blueGrey[900],
+        disableUnderline: true,
       },
     },
   },
