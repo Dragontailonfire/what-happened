@@ -24,6 +24,7 @@ export const EventViewOptions = () => {
           <ToggleButtonGroup
             value={eventStateView}
             exclusive
+            orientation="horizontal"
             size="large"
             onChange={handleEventStateView}
             aria-label="text alignment"
@@ -33,8 +34,10 @@ export const EventViewOptions = () => {
               value="Archived"
               aria-label="archived"
             >
+              {" "}
+              {eventStateView === "Archived" ? "ARCHIVED" : ""}
               <ArchiveIcon
-                fontSize={eventStateView === "Archived" ? "large" : "default"}
+              //fontSize={eventStateView === "Archived" ? "large" : "default"}
               />
             </ToggleButton>
             <ToggleButton
@@ -42,8 +45,10 @@ export const EventViewOptions = () => {
               value="Favourites"
               aria-label="favourites"
             >
+              {" "}
+              {eventStateView === "Favourites" ? "Favourites" : ""}
               <FavouriteIcon
-                fontSize={eventStateView === "Favourites" ? "large" : "default"}
+              //fontSize={eventStateView === "Favourites" ? "large" : "default"}
               />
             </ToggleButton>
             <ToggleButton
@@ -51,8 +56,10 @@ export const EventViewOptions = () => {
               value="Completed"
               aria-label="completed"
             >
+              {" "}
+              {eventStateView === "Completed" ? "Completed" : ""}
               <DoneAllIcon
-                fontSize={eventStateView === "Completed" ? "large" : "default"}
+              //fontSize={eventStateView === "Completed" ? "large" : "default"}
               />
             </ToggleButton>
           </ToggleButtonGroup>

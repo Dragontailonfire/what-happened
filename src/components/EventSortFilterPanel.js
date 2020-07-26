@@ -18,13 +18,12 @@ export const EventSortFilterPanel = () => {
   const classes = useStyles();
   return (
     <>
-      <Paper component="div" className={classes.view} elevation={0}>
-        <EventViewOptions />
-      </Paper>
-      <br />
       <Paper component="div" className={classes.tags} elevation={0}>
         <EventTagList />
       </Paper>
     </>
   );
 };
+/* <Paper component="div" className={classes.view} elevation={0}>
+  <EventViewOptions />
+</Paper><br /> */

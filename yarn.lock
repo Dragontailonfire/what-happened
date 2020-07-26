@@ -1573,6 +1573,14 @@
     "@mui-treasury/utils" "^0.4.1"
     color "^3.1.2"
 
+"@mui-treasury/styles@^1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@mui-treasury/styles/-/styles-1.12.0.tgz#38ea0b74f83ed512b390dc838aba19cb28d3dfa9"
+  integrity sha512-C0d+WYP88sbV8k+jEsxe7e+N0adtFsDI/VhBZS0aUvDiUT8+FAjpusyazOgVZGvmKQ0zElMvSfLHUavlkelX2w==
+  dependencies:
+    "@mui-treasury/utils" "^0.4.1"
+    color "^3.1.2"
+
 "@mui-treasury/utils@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@mui-treasury/utils/-/utils-0.4.1.tgz#075645cec98b2e976766e505d9ac8b52778438b3"

@@ -39,7 +39,7 @@ export const lightTheme = createMuiTheme({
     MuiButton: {
       contained: {
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        //borderRadius: 0,
+        borderRadius: 30,
         //color: "black",
         //padding: "0 30px",
       },
@@ -56,7 +56,7 @@ export const lightTheme = createMuiTheme({
     MuiPaper: {
       //root: { borderRadius: 0 },
     },
-    MuiTextField: {
+    /* MuiTextField: {
       root: {
         "& input:valid + fieldset": {
           borderColor: grey[200],
@@ -76,7 +76,7 @@ export const lightTheme = createMuiTheme({
         //borderColor:grey[200],
         //disableUnderline: false,
       },
-    },
+    }, */
   },
 });
 
@@ -107,7 +107,7 @@ export const darkTheme = createMuiTheme({
     MuiButton: {
       contained: {
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        borderRadius: 20,
+        borderRadius: 30,
         //color: "black",
         //padding: "0 30px",
       },
@@ -138,11 +138,11 @@ export const darkTheme = createMuiTheme({
           borderLeftWidth: 10,
           padding: "4px !important", // override inline-style
         }, */
-        borderRadius: 5,
+        //borderRadius: 5,
         //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
-        background: blueGrey[900],
+        //background: blueGrey[900],
         //borderColor: blueGrey[900],
-        disableUnderline: true,
+        //disableUnderline: true,
       },
     },
   },

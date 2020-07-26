@@ -67,7 +67,7 @@ export default function AddTagForm() {
             size="small"
             color="secondary"
             fullWidth
-            variant="outlined"
+            variant="standard"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

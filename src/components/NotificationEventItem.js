@@ -12,23 +12,16 @@ import {
   Avatar,
 } from "@material-ui/core";
 
-export default function NotificationEventItem() {
+export default function NotificationEventItem({
+  thisMonthEvents,
+  nextMonthEvents,
+}) {
   const useStyles = makeStyles((theme) => ({
     root: {
-      borderRadius: 0,
+      borderRadius: 20,
       borderColor: theme.palette.background.paper,
     },
   }));
-
-  const thisMonthEvents = [
-    { title: "Something is happening", daysToEvent: 3 },
-    { title: "Something more is happening", daysToEvent: 7 },
-    { title: "Something else is happening", daysToEvent: 21 },
-  ];
-  const nextMonthEvents = [
-    { title: "This happens later", daysToEvent: 31 },
-    { title: "This one as well", daysToEvent: 45 },
-  ];
 
   const classes = useStyles();
   return (

@@ -18,11 +18,17 @@ export const EventModificationPanel = () => {
       padding: theme.spacing(2),
       borderRadius: 15,
     },
+    view: {
+      padding: theme.spacing(1),
+      borderRadius: 15,
+    },
   }));
   const classes = useStyles();
   return (
-    <Paper component="div" className={classes.root} elevation={20}>
-      <EventForm {...eventItem[0]} />
-    </Paper>
+    <>
+      <Paper component="div" className={classes.root} elevation={20}>
+        <EventForm {...eventItem[0]} />
+      </Paper>
+    </>
   );
 };

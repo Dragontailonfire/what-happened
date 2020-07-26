@@ -2,8 +2,19 @@ import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { DialogActions, Button, Grid, TextField } from "@material-ui/core";
+import {
+  DialogActions,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Slide,
+} from "@material-ui/core";
 import { Controller, useForm } from "react-hook-form";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 
 export default function AddEventDialog(props) {
   const { handleSubmit, errors, control, register } = useForm({
@@ -16,13 +27,15 @@ export default function AddEventDialog(props) {
 
   return (
     <Dialog
+      maxWidth="xs"
+      TransitionComponent={Transition}
+      keepMounted
       id="loginDialog"
       open={props.open}
       onClose={props.handleClose}
       aria-labelledby="login-dialog-title"
       aria-describedby="login-dialog-description"
     >
-      <DialogTitle id="login-dialog-title">Login</DialogTitle>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent>
           <Grid
@@ -33,10 +46,13 @@ export default function AddEventDialog(props) {
             alignItems="stretch"
           >
             <Grid item xs={12}>
+              <Typography variant="h6">Login</Typography>
+            </Grid>
+            <Grid item xs={12}>
               <Controller
                 as={TextField}
                 color="secondary"
-                variant="outlined"
+                variant="filled"
                 label="Username"
                 name="username"
                 margin="none"
@@ -60,7 +76,7 @@ export default function AddEventDialog(props) {
                 InputProps={{
                   type: "password",
                 }}
-                variant="outlined"
+                variant="filled"
                 name="password"
                 id="password"
                 label="Password"

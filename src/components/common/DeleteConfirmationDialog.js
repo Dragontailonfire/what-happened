@@ -5,12 +5,19 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { Slide } from "@material-ui/core";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
 
 export default function DeleteConfirmationDialog(props) {
   return (
     <Dialog
       id="deleteDialog"
       open={props.open}
+      TransitionComponent={Transition}
+      keepMounted
       onClose={props.handleClose}
       aria-labelledby="delete-dialog-title"
       aria-describedby="delete-dialog-description"

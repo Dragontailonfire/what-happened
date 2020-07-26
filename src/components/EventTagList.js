@@ -71,8 +71,10 @@ export default function EventTagList() {
       });
     }
     setOpenDeleteDialog(false);
-
     setTagToDelete("");
+    if (eventTagOptions.length < 2) {
+      setEditMode(!editMode);
+    }
   };
 
   const handleListItemClick = (event, tag, colour) => {

@@ -87,7 +87,7 @@ export const EventForm = (props) => {
 
   const validateEndDate = (endDate) => {
     let start = getValues("startDate");
-    if (isAfter(endDate, start)) return false;
+    if (eventEndedSwitch && isAfter(endDate, start)) return false;
     return true;
   };
 
@@ -152,7 +152,7 @@ export const EventForm = (props) => {
             as={TextField}
             fullWidth
             color="secondary"
-            variant="outlined"
+            variant="filled"
             label={
               errors.title && errors.title.type === "required"
                 ? "Give a title to this Event"
@@ -184,7 +184,7 @@ export const EventForm = (props) => {
               rules={{ required: true }}
               error={errors.startDate ? true : false}
               size="small"
-              inputVariant="outlined"
+              inputVariant="filled"
               variant="inline"
               format="dd/MM/yyyy"
               color="secondary"
@@ -206,7 +206,7 @@ export const EventForm = (props) => {
               control={control}
               autoOk
               size="small"
-              inputVariant="outlined"
+              inputVariant="filled"
               rules={{
                 required: true,
                 validate: validateEndDate,
@@ -312,15 +312,11 @@ export const EventForm = (props) => {
             size="small"
             fullWidth
             //multiline
-            variant="outlined"
+            variant="filled"
             name="description"
             id="description"
-            label={
-              errors.title && errors.title.type === "maxLength"
-                ? "Add the excess information from the title here"
-                : "Description"
-            }
             placeholder="The details"
+            label="Description"
           />
         </Grid>
         <Grid item xs={12}>
@@ -379,7 +375,7 @@ export const EventForm = (props) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    variant="outlined"
+                    variant="filled"
                     label="Tags"
                     color="secondary"
                     size="small"
