@@ -40,6 +40,7 @@ export default function AddTagForm() {
   const tags = _.map(eventTagOptions, "tagName");
 
   const validateTagName = (value) => {
+    debugger;
     if (
       _.findIndex(tags, function (val) {
         return TextUtils.TextCompare(val, value);
@@ -50,6 +51,7 @@ export default function AddTagForm() {
   };
 
   const onSubmit = (data) => {
+    debugger;
     dispatch(eventActions.createEventTag(data));
     enqueueSnackbar("Tag '" + data.tagName + "' is created!", {
       variant: "success",
@@ -69,6 +71,7 @@ export default function AddTagForm() {
             fullWidth
             variant="standard"
             InputProps={{
+              disableUnderline: true,
               endAdornment: (
                 <InputAdornment position="end">
                   {formState.dirty && errors.tagName ? (
@@ -104,7 +107,7 @@ export default function AddTagForm() {
             helperText={
               errors.tagName &&
               errors.tagName.type === "maxLength" &&
-              "This tag is very lenghty"
+              "This tag is too long"
             }
           />
         </div>

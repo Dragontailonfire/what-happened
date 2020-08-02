@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { BaseEventList } from "./BaseEventList";
 import EventItemLoader from "./common/EventItemLoader";
 import _ from "lodash";
-import * as dateCalculation from "../utilities/DateUtils";
 import NoEventsPanel from "./common/NoEventsPanel";
+import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 
 export const FinalSortedFilteredEventList = () => {
   const allItems = useSelector((state) => state.eventItems);
@@ -30,7 +30,7 @@ export const FinalSortedFilteredEventList = () => {
   //sortBy = apply sorting based on condition
   const sortedItems = _.sortBy(allItems, [
     function (a) {
-      return dateCalculation.daysBetween(new Date(a.startDate), new Date());
+      return differenceInCalendarDays(new Date(), new Date(a.startDate));
     },
     "title",
   ]);
@@ -61,7 +61,7 @@ export const FinalSortedFilteredEventList = () => {
   }
 
   const completedEventItems = activeEventItems.filter(
-    (item) => item.eventEnded === true
+    (item) => item.completedEvent === true
   );
   if (view === "Completed" && completedEventItems.length === 0) {
     return <NoEventsPanel type="completed" />;

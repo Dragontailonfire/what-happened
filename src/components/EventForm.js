@@ -46,9 +46,9 @@ export const EventForm = (props) => {
       checkedDays: false,
       checkedMonths: false,
       checkedYears: false,
-      eventEnded: false,
+      completedEvent: false,
       endDate: new Date(),
-      annualEvent: false,
+      setReminder: false,
       lastEditedDate: "",
       edit: false,
       eventTags: [],
@@ -68,14 +68,14 @@ export const EventForm = (props) => {
           { checkedDays: props.checkedDays },
           { checkedMonths: props.checkedMonths },
           { checkedYears: props.checkedYears },
-          { eventEnded: props.eventEnded },
-          { annualEvent: props.annualEvent },
+          { completedEvent: props.completedEvent },
+          { setReminder: props.setReminder },
           { lastEditedDate: props.lastEditedDate },
           { eventTags: props.tags },
         ])
       );
     }
-    if (props.eventEnded) {
+    if (props.completedEvent) {
       setTimeout(() => setValue([{ endDate: props.endDate }]));
     }
   }, [setValue, props]);
@@ -83,22 +83,25 @@ export const EventForm = (props) => {
   const eventTagOptions = useSelector((state) => state.eventTags);
   const dispatch = useDispatch();
   const filter = createFilterOptions();
-  const eventEndedSwitch = watch("eventEnded");
+  const completedEventSwitch = watch("completedEvent");
 
   const validateEndDate = (endDate) => {
     let start = getValues("startDate");
-    if (eventEndedSwitch && isAfter(endDate, start)) return false;
+    let isEnded = getValues("completedEvent");
+    let errorCondition = isAfter(new Date(endDate), new Date(start));
+    if (isEnded && errorCondition) return false;
     return true;
   };
 
   const onSubmit = (data) => {
+    props.closePanel();
     data.tags = assignTags(data.eventTags);
     delete data.eventTags;
     data.lastEditedDate = new Date().toISOString();
     data.edit = false;
     if (props.edit) {
       data.id = props.id;
-      if (!data.eventEnded) {
+      if (!data.completedEvent) {
         data.endDate = "";
       }
       dispatch(eventActions.updatedEventItem(data));
@@ -114,6 +117,7 @@ export const EventForm = (props) => {
       });
     }
     reset();
+    props.closePanel();
   };
 
   const assignTags = (tags) => {
@@ -132,6 +136,7 @@ export const EventForm = (props) => {
   };
 
   const handleCancelEdit = () => {
+    props.closePanel();
     const cancelEditData = { ...props };
     cancelEditData.edit = false;
     dispatch(eventActions.updatedEventItem(cancelEditData));
@@ -141,7 +146,7 @@ export const EventForm = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
-        spacing={2}
+        spacing={1}
         container
         direction="row"
         justify="space-between"
@@ -152,7 +157,7 @@ export const EventForm = (props) => {
             as={TextField}
             fullWidth
             color="secondary"
-            variant="filled"
+            variant="standard"
             label={
               errors.title && errors.title.type === "required"
                 ? "Give a title to this Event"
@@ -169,7 +174,7 @@ export const EventForm = (props) => {
             helperText={
               errors.title &&
               errors.title.type === "maxLength" &&
-              "This title is very lenghty"
+              "This title is too long"
             }
           />
         </Grid>
@@ -184,7 +189,7 @@ export const EventForm = (props) => {
               rules={{ required: true }}
               error={errors.startDate ? true : false}
               size="small"
-              inputVariant="filled"
+              inputVariant="standard"
               variant="inline"
               format="dd/MM/yyyy"
               color="secondary"
@@ -199,14 +204,14 @@ export const EventForm = (props) => {
         <Grid item xs={12}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
-              disabled={!eventEndedSwitch}
+              disabled={!completedEventSwitch}
               as={KeyboardDatePicker}
               name="endDate"
               fullWidth
               control={control}
               autoOk
               size="small"
-              inputVariant="filled"
+              inputVariant="standard"
               rules={{
                 required: true,
                 validate: validateEndDate,
@@ -278,12 +283,12 @@ export const EventForm = (props) => {
                   as={Checkbox}
                   type="checkbox"
                   control={control}
-                  name="eventEnded"
-                  id="eventEnded"
+                  name="completedEvent"
+                  id="completedEvent"
                   color="secondary"
                 />
               }
-              label="End event"
+              label="Completed Event"
             />
           </FormControl>
         </Grid>
@@ -295,12 +300,12 @@ export const EventForm = (props) => {
                   as={Checkbox}
                   type="checkbox"
                   control={control}
-                  name="annualEvent"
-                  id="annualEvent"
+                  name="setReminder"
+                  id="setReminder"
                   color="secondary"
                 />
               }
-              label="Annual Event"
+              label="Set Reminder"
             />
           </FormControl>
         </Grid>
@@ -310,9 +315,10 @@ export const EventForm = (props) => {
             control={control}
             color="secondary"
             size="small"
+            margin="none"
             fullWidth
             //multiline
-            variant="filled"
+            variant="standard"
             name="description"
             id="description"
             placeholder="The details"
@@ -375,7 +381,7 @@ export const EventForm = (props) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    variant="filled"
+                    variant="standard"
                     label="Tags"
                     color="secondary"
                     size="small"
@@ -402,50 +408,44 @@ export const EventForm = (props) => {
             <Button
               variant="contained"
               color="secondary"
-              //disableElevation
-              //style={{ borderRadius: 10 }}
               id="cancel"
               type="reset"
               size="medium"
               onClick={handleCancelEdit}
-              startIcon={<CancelIcon />}
+              //startIcon={<CancelIcon />}
+              //endIcon={<CancelIcon />}
             >
               Cancel
             </Button>
           ) : (
-            formState.dirty && (
-              <Button
-                variant="text"
-                //disableElevation
-                color="secondary"
-                id="clear"
-                //style={{ borderRadius: 10 }}
-                size="medium"
-                type="reset"
-                onClick={() => {
-                  reset();
-                }}
-                startIcon={<ClearIcon />}
-              >
-                Clear
-              </Button>
-            )
+            /* formState.dirty && */ <Button
+              variant="outlined"
+              color="secondary"
+              id="clear"
+              size="medium"
+              type="reset"
+              onClick={() => {
+                props.closePanel();
+                reset();
+              }}
+            >
+              Clear
+            </Button>
           )}
         </Grid>
         <Grid item xs="auto">
           <Button
             hidden={!formState.dirty}
-            //disableElevation
-            //style={{ borderRadius: 5 }}
             variant="contained"
             color="primary"
             name="saveEvent"
             size="medium"
             id="saveEvent"
             type="submit"
-            startIcon={props.edit ? <UpdateIcon /> : <SaveIcon />}
+            //startIcon={props.edit ? <UpdateIcon /> : <SaveIcon />}
+            //endIcon={props.edit ? <UpdateIcon /> : <SaveIcon />}
           >
-            SAVE
+            Save
           </Button>
         </Grid>
       </Grid>
@@ -463,8 +463,8 @@ export const EventForm = (props) => {
                     as={Switch}
                     type="checkbox"
                     control={control}
-                    name="eventEnded"
-                    id="eventEnded"
+                    name="completedEvent"
+                    id="completedEvent"
                     color="secondary"
                   />
                 }
@@ -476,12 +476,12 @@ export const EventForm = (props) => {
                     as={Checkbox}
                     type="checkbox"
                     control={control}
-                    name="annualEvent"
-                    id="annualEvent"
+                    name="setReminder"
+                    id="setReminder"
                     color="secondary"
                   />
                 }
-                label="Annual Event"
+                label="Set Reminder"
               />
             </FormGroup>
           </FormControl>

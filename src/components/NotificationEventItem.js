@@ -18,7 +18,7 @@ export default function NotificationEventItem({
 }) {
   const useStyles = makeStyles((theme) => ({
     root: {
-      borderRadius: 20,
+      borderRadius: 5,
       borderColor: theme.palette.background.paper,
     },
   }));
@@ -27,35 +27,43 @@ export default function NotificationEventItem({
   return (
     <>
       <List className={classes.root} component="ul">
-        <ListSubheader>This month</ListSubheader>
+        <ListSubheader>This month upcoming</ListSubheader>
+        {thisMonthEvents.length < 1 && (
+          <>
+            <ListItemText inset primary="No events" />
+          </>
+        )}
         {thisMonthEvents.map((event) => (
-          <ListItem divider>
+          <ListItem>
             <ListItemAvatar>
               <Avatar>{event.daysToEvent}</Avatar>
             </ListItemAvatar>
             <ListItemText
               primary={event.title}
-              secondary={"Coming up in " + event.daysToEvent + " days"}
+              //secondary={"Coming up in " + event.daysToEvent + " days"}
             />
-            <ListItemSecondaryAction>
+            <ListItemSecondaryAction hidden>
               <IconButton edge="end" aria-label="snooze">
                 <SnoozeIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
         ))}
-
-        <ListSubheader>Next month</ListSubheader>
+        <ListItem divider />
+        <ListSubheader>Next month upcoming</ListSubheader>
+        {nextMonthEvents.length < 1 && (
+          <ListItemText inset primary="No events" />
+        )}
         {nextMonthEvents.map((event) => (
-          <ListItem divider>
+          <ListItem>
             <ListItemAvatar>
               <Avatar>{event.daysToEvent}</Avatar>
             </ListItemAvatar>
             <ListItemText
               primary={event.title}
-              secondary={"Coming up in " + event.daysToEvent + " days"}
+              //secondary={"Coming up in " + event.daysToEvent + " days"}
             />
-            <ListItemSecondaryAction>
+            <ListItemSecondaryAction hidden>
               <IconButton edge="end" aria-label="snooze">
                 <SnoozeIcon />
               </IconButton>

@@ -14,6 +14,11 @@ import isSameMonth from "date-fns/isSameMonth";
 import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 import { useSelector } from "react-redux";
 import _ from "lodash";
+import getDate from "date-fns/getDate";
+import getMonth from "date-fns/getMonth";
+import getYear from "date-fns/getYear";
+import toDate from "date-fns/toDate";
+import isFuture from "date-fns/isFuture";
 
 /* const useStyles = makeStyles((theme) => ({
   typography: {
@@ -26,7 +31,7 @@ const styles = StyleSheet.create({
     ":hover": {
       animationName: shake,
       animationDuration: "0.7s",
-      backgroundColor: "transparent",
+      //backgroundColor: "transparent",
     },
   },
 });
@@ -46,27 +51,87 @@ export default function NotificationPopup() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const convertToThisYearDate = (actualDate) => {
+    console.log("Actual date");
+    console.log(actualDate);
+    let day = getDate(new Date(actualDate));
+    let month = getMonth(new Date(actualDate));
+    let year = getYear(new Date());
+    let newDate = toDate(
+      new Date(parseInt(year), parseInt(month), parseInt(day))
+    );
+    console.log("New date");
+    console.log(newDate);
+    return newDate;
+  };
+
   const allItems = useSelector((state) => state.eventItems);
+  console.log("All items");
+  console.log(allItems);
+
+  const activeAnnualItems = allItems.filter(
+    (item) => !item.archived && item.setReminder
+  );
+
+  console.log("Active  annual items");
+  console.log(activeAnnualItems);
+
+  const sortedItems = _.sortBy(activeAnnualItems, [
+    function (a) {
+      return differenceInCalendarDays(
+        convertToThisYearDate(a.startDate),
+        new Date()
+      );
+    },
+    "title",
+  ]);
+
+  console.log("Sorted Active  annual items");
+  console.log(sortedItems);
+
   const thisMonthItems = [
-    ...allItems.filter((item) => isThisMonth(new Date(item.startDate))),
+    ...sortedItems.filter(
+      (item) =>
+        isThisMonth(convertToThisYearDate(item.startDate)) &&
+        isFuture(convertToThisYearDate(item.startDate))
+    ),
   ];
+
+  console.log("This month Sorted Active  annual items");
+  console.log(sortedItems);
+
   var nextMonthDate = addMonths(new Date(), 1);
+
   const nextMonthItems = [
-    ...allItems.filter((item) =>
-      isSameMonth(new Date(item.startDate), new Date(nextMonthDate))
+    ...sortedItems.filter((item) =>
+      isSameMonth(
+        convertToThisYearDate(item.startDate),
+        new Date(nextMonthDate)
+      )
     ),
   ];
 
   const itemsCount = thisMonthItems.length + nextMonthItems.length;
 
-  const thisMonth = _.mapValues(thisMonthItems, (value, key) => {
-    return { title: value.title, daysToEvent: 6 };
+  const thisMonth = thisMonthItems.map((item) => {
+    return {
+      title: item.title,
+      daysToEvent: differenceInCalendarDays(
+        convertToThisYearDate(item.startDate),
+        new Date()
+      ),
+    };
   });
-  console.log(thisMonth);
-  const nextMonth = [
-    { title: "This happens later", daysToEvent: 31 },
-    { title: "This one as well", daysToEvent: 45 },
-  ];
+
+  const nextMonth = nextMonthItems.map((item) => {
+    return {
+      title: item.title,
+      daysToEvent: differenceInCalendarDays(
+        convertToThisYearDate(item.startDate),
+        new Date()
+      ),
+    };
+  });
 
   return (
     <>
@@ -103,8 +168,8 @@ export default function NotificationPopup() {
         }}
       >
         <NotificationEventItem
-          thisMonthEvents={thisMonthItems}
-          nextMonthEvents={nextMonthItems}
+          thisMonthEvents={thisMonth}
+          nextMonthEvents={nextMonth}
         />
       </Popover>
     </>

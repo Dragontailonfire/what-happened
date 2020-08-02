@@ -12,18 +12,19 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ArchiveIcon from "@material-ui/icons/ArchiveOutlined";
 import UnarchiveSharpIcon from "@material-ui/icons/UnarchiveTwoTone";
-import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
+import DeleteIcon from "@material-ui/icons/DeleteForeverTwoTone";
 import EditIcon from "@material-ui/icons/EditTwoTone";
 import FavouriteIcon from "@material-ui/icons/FavoriteTwoTone";
 import DoneIcon from "@material-ui/icons/DoneRounded";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMoreRounded";
 import LabelIcon from "@material-ui/icons/LabelRounded";
 import PinnedIcon from "@material-ui/icons/PinDropTwoTone";
-import PinIcon from "@material-ui/icons/RoomTwoTone";
-import { pink, green } from "@material-ui/core/colors";
+import GradeIcon from "@material-ui/icons/GradeTwoTone";
+import { pink, green, red, yellow, common } from "@material-ui/core/colors";
 import _ from "lodash";
 import DeleteConfirmationDialog from "./common/DeleteConfirmationDialog";
 import { StyleSheet, css } from "aphrodite";
@@ -31,10 +32,11 @@ import jello from "react-animations/lib/jello";
 import swing from "react-animations/lib/swing";
 import flip from "react-animations/lib/flip";
 import bounceOut from "react-animations/lib/bounceOut";
+import { ButtonGroup } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    borderRadius: 15,
+    borderRadius: 5,
     transition: "0.1s",
     "&:hover": {
       //transform: "translateY(-10px)",
@@ -48,14 +50,18 @@ const useStyles = makeStyles((theme) => ({
   },
 
   expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "",
+    //transform: "rotate(0deg)",
+    marginLeft: "auto",
+    /* marginRight: -9,
+    marginBottom: -8, */
+    borderRadius: 5,
+    //marginTop: -10,
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.short,
     }),
   },
   expandOpen: {
-    transform: "rotate(180deg)",
+    //transform: "rotate(180deg)",
   },
   tags: { marginLeft: "auto" },
   selectedFavouriteIcon: { color: pink["A400"] },
@@ -67,28 +73,28 @@ const styles = StyleSheet.create({
       animationName: jello,
       animationIterationCount: 2,
       animationDuration: "0.7s",
-      backgroundColor: "transparent",
+      //backgroundColor: "transparent",
     },
   },
   iconEffectDelete: {
     ":hover": {
       animationName: bounceOut,
       animationDuration: "0.7s",
-      backgroundColor: "transparent",
+      //backgroundColor: "transparent",
     },
   },
   iconEffectArchive: {
     ":hover": {
       animationName: flip,
       animationDuration: "0.7s",
-      backgroundColor: "transparent",
+      //backgroundColor: "transparent",
     },
   },
   iconEffectEdit: {
     ":hover": {
       animationName: swing,
       animationDuration: "0.7s",
-      backgroundColor: "transparent",
+      //backgroundColor: "transparent",
     },
   },
 });
@@ -156,78 +162,108 @@ export const EventItemCard = (props) => {
   return (
     <>
       <Card
-        square
+        //square
         id={"event-item-" + props.id}
         //className={classes.root}
         className={clsx(classes.root, {
           [classes.editMode]: expanded,
         })}
         variant="elevation"
-        //elevation={10}
+        elevation={0}
+        style={{ backgroundColor: props.cardColor }}
       >
         <CardHeader
           title={
-            <Typography id={"event-title-" + props.id} variant="h6">
+            <Typography id={"event-title-" + props.id} variant="h5">
               {props.title}
             </Typography>
           }
           action={
-            <IconButton aria-label="pin-event">
-              <PinIcon />
-            </IconButton>
+            <Tooltip
+              title={
+                props.favourite ? "Remove from Favourites" : "Add to Favourites"
+              }
+              arrow
+            >
+              <IconButton
+                disableRipple
+                disableFocusRipple
+                disableTouchRipple
+                hidden={props.archived}
+                id={"event-favourite-button-" + props.id}
+                className={css(styles.iconEffect)}
+                aria-label="favourite event"
+                onClick={handleFavouriteClick}
+              >
+                {props.favourite ? (
+                  <FavouriteIcon
+                    fontSize="large"
+                    className={classes.selectedFavouriteIcon}
+                  />
+                ) : (
+                  <FavouriteIcon fontSize="inherit" />
+                )}
+              </IconButton>
+            </Tooltip>
           }
-          avatar={props.endDate && <DoneIcon htmlColor={green["A700"]} />}
+          avatar={
+            props.completedEvent && <DoneIcon htmlColor={green["A700"]} />
+          }
           subheader={
-            props.endDate ? (
-              <Typography variant="overline">
-                {"Time period: " + props.finishedDuration}
+            props.completedEvent && (
+              <Typography
+                variant="overline"
+                id={"event-completed-duration-" + props.id}
+              >
+                {"Event Duration: " + props.detailedDuration}
               </Typography>
-            ) : (
-              ""
             )
           }
         />
         <CardContent>
           <Typography
             id={"event-duration-" + props.id}
-            variant="h6"
+            variant="body1"
             color="textSecondary"
+            gutterBottom
           >
             {props.duration}
           </Typography>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <Typography
-              id={"event-description-" + props.id}
-              gutterBottom
-              variant="h6"
-            >
+          <Typography className={classes.tags} gutterBottom>
+            {props.tags.map((tag) => (
+              <Tooltip key={tag.tagName} title={tag.tagName} arrow interactive>
+                <LabelIcon htmlColor={tag.colour} fontSize="large" />
+              </Tooltip>
+            ))}
+          </Typography>
+          <Collapse in={expanded} /* timeout="auto" unmountOnExit */>
+            <Typography id={"event-description-" + props.id} variant="body1">
               {props.description}
             </Typography>
-            <Typography
-              variant="h6"
-              id={"event-startdate-" + props.id}
-              className="card-subtitle mb-2 text-muted"
-            >
+            <Typography variant="body1" id={"event-startdate-" + props.id}>
               {"Happened on " + new Date(props.startDate).toDateString()}
             </Typography>
-            {props.endDate && (
-              <Typography
-                variant="h6"
-                id={"event-enddate-" + props.id}
-                className="card-subtitle mb-2 text-muted"
-              >
+            {props.completedEvent && (
+              <Typography variant="body1" id={"event-enddate-" + props.id}>
                 {"Ended on " + new Date(props.endDate).toDateString()}
               </Typography>
             )}
+            <Typography
+              id={"event-total-duration-" + props.id}
+              //gutterBottom
+              variant="body1"
+            >
+              {"Event Duration: " + props.detailedDuration}
+            </Typography>
           </Collapse>
         </CardContent>
-        <Divider />
+        <Divider variant="middle" />
         <CardActions disableSpacing>
           <Tooltip title={props.edit ? "Editing..." : "Edit this event"} arrow>
             <IconButton
-              disableRipple
+              /* disableRipple
               disableFocusRipple
-              disableTouchRipple
+              disableTouchRipple */
               hidden={props.archived}
               name="editEvent"
               id={"event-edit-button-" + props.id}
@@ -235,37 +271,7 @@ export const EventItemCard = (props) => {
               aria-expanded={expanded}
               onClick={handleEditClick}
             >
-              {props.edit ? (
-                <EditIcon fontSize="large" color="secondary" />
-              ) : (
-                <EditIcon fontSize="inherit" />
-              )}
-            </IconButton>
-          </Tooltip>
-          <Tooltip
-            title={
-              props.favourite ? "Remove from Favourites" : "Add to Favourites"
-            }
-            arrow
-          >
-            <IconButton
-              disableRipple
-              disableFocusRipple
-              disableTouchRipple
-              hidden={props.archived}
-              id={"event-favourite-button-" + props.id}
-              className={css(styles.iconEffect)}
-              aria-label="favourite event"
-              onClick={handleFavouriteClick}
-            >
-              {props.favourite ? (
-                <FavouriteIcon
-                  fontSize="large"
-                  className={classes.selectedFavouriteIcon}
-                />
-              ) : (
-                <FavouriteIcon fontSize="inherit" />
-              )}
+              {props.edit ? <EditIcon color="secondary" /> : <EditIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip
@@ -275,26 +281,26 @@ export const EventItemCard = (props) => {
             arrow
           >
             <IconButton
-              disableRipple
+              /* disableRipple
               disableFocusRipple
-              disableTouchRipple
+              disableTouchRipple */
               className={css(styles.iconEffectArchive)}
               id={"event-archive-button-" + props.id}
               onClick={handleArchiveClick}
               aria-label="archive event"
             >
               {props.archived ? (
-                <UnarchiveSharpIcon fontSize="large" color="secondary" />
+                <UnarchiveSharpIcon color="secondary" />
               ) : (
-                <ArchiveIcon fontSize="inherit" />
+                <ArchiveIcon />
               )}
             </IconButton>
           </Tooltip>
           <Tooltip title="Delete this event" arrow>
             <IconButton
-              disableRipple
+              /* disableRipple
               disableFocusRipple
-              disableTouchRipple
+              disableTouchRipple */
               className={css(styles.iconEffectDelete)}
               id={"event-delete-button-" + props.id}
               aria-label="delete event"
@@ -306,15 +312,7 @@ export const EventItemCard = (props) => {
               <DeleteIcon fontSize="inherit" />
             </IconButton>
           </Tooltip>
-          <Typography className={classes.tags}>
-            {props.tags.map((tag) => (
-              <Tooltip key={tag.tagName} title={tag.tagName} arrow interactive>
-                <LabelIcon htmlColor={tag.colour} fontSize="large" />
-              </Tooltip>
-            ))}
-          </Typography>
-
-          <IconButton
+          <Button
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
@@ -324,9 +322,12 @@ export const EventItemCard = (props) => {
             id={"event-expand-button-" + props.id}
             aria-expanded={expanded}
             aria-label="show more"
+            color="secondary"
+            variant="contained"
+            size="small"
           >
-            <ExpandMoreIcon fontSize="large" />
-          </IconButton>
+            {expanded ? "Less" : "More"}
+          </Button>
         </CardActions>
       </Card>
       <DeleteConfirmationDialog

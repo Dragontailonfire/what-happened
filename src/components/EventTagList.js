@@ -11,7 +11,7 @@ import Chip from "@material-ui/core/Chip";
 import AddTagForm from "./common/AddTagForm";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/EditRounded";
+import EditIcon from "@material-ui/icons/SettingsTwoTone";
 import DoneIcon from "@material-ui/icons/DoneRounded";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutlineRounded";
 import LabelIcon from "@material-ui/icons/LabelTwoTone";
@@ -21,6 +21,7 @@ import DeleteConfirmationDialog from "./common/DeleteConfirmationDialog";
 import { StyleSheet, css } from "aphrodite";
 import swing from "react-animations/lib/swing";
 import pulse from "react-animations/lib/pulse";
+import { Collapse } from "@material-ui/core";
 
 const styles = StyleSheet.create({
   iconEffectDelete: {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     ":hover": {
       animationName: swing,
       animationDuration: "0.7s",
-      backgroundColor: "transparent",
+      //backgroundColor: "transparent",
     },
   },
 });
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     textAlign: "center",
+    maxHeight: "100px",
   },
 }));
 
@@ -94,8 +96,8 @@ export default function EventTagList() {
     );
   };
   return (
-    <div className={classes.roojt}>
-      <List component="div" aria-label="filters">
+    <div className={classes.roota}>
+      <List component="div" aria-label="tag list">
         <ListItem
           button={selectedTags.length > 0}
           onClick={() => {
@@ -125,16 +127,12 @@ export default function EventTagList() {
             >
               {editMode && eventTagOptions.length > 0 ? (
                 <DoneIcon htmlColor={green["A700"]} />
-              ) : eventTagOptions.length > 0 ? (
-                <EditIcon />
               ) : (
-                <></>
+                <EditIcon />
               )}
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
-      </List>
-      <List component="div" aria-label="tag list">
         {eventTagOptions.map((opt) => (
           <ListItem
             alignItems="center"
@@ -183,8 +181,13 @@ export default function EventTagList() {
             )}
           </ListItem>
         ))}
+        <Collapse in={editMode}>
+          <ListItem>
+            <AddTagForm />
+          </ListItem>
+        </Collapse>
       </List>
-      <AddTagForm />
+
       <DeleteConfirmationDialog
         type="Tag"
         name={tagToDelete}
@@ -194,9 +197,3 @@ export default function EventTagList() {
     </div>
   );
 }
-
-/* <ListItem
-          onClick={() => {
-            setEditMode(false);
-          }}
-        ></ListItem> */

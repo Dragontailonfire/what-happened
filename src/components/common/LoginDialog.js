@@ -1,7 +1,6 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import {
   DialogActions,
   Button,
@@ -17,12 +16,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function AddEventDialog(props) {
-  const { handleSubmit, errors, control, register } = useForm({
+  const { handleSubmit, errors, control, register, reset } = useForm({
     mode: "onChange",
+    defaultValues: { username: "", password: "" },
   });
 
   const onSubmit = (data) => {
-    alert("Username: " + data.username + " - Password: " + data.password);
+    alert("Username: " + data.username + "\nPassword: " + data.password);
+    reset();
   };
 
   return (
@@ -73,6 +74,7 @@ export default function AddEventDialog(props) {
                 color="secondary"
                 type="password"
                 fullWidth
+                rules={{ required: true }}
                 InputProps={{
                   type: "password",
                 }}
@@ -80,6 +82,10 @@ export default function AddEventDialog(props) {
                 name="password"
                 id="password"
                 label="Password"
+                error={errors.password ? true : false}
+                helperText={
+                  errors.password && "Enter the password and try again"
+                }
               />
             </Grid>
           </Grid>

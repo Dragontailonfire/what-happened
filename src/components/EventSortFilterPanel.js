@@ -6,24 +6,15 @@ import { EventViewOptions } from "./EventViewOptions";
 
 export const EventSortFilterPanel = () => {
   const useStyles = makeStyles((theme) => ({
-    view: {
-      padding: theme.spacing(2),
-      borderRadius: 15,
-    },
     tags: {
-      padding: theme.spacing(2),
-      borderRadius: 15,
+      padding: theme.spacing(1),
+      borderRadius: 5,
     },
   }));
   const classes = useStyles();
   return (
-    <>
       <Paper component="div" className={classes.tags} elevation={0}>
         <EventTagList />
       </Paper>
-    </>
   );
 };
-/* <Paper component="div" className={classes.view} elevation={0}>
-  <EventViewOptions />
-</Paper><br /> */

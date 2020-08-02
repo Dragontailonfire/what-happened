@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
+import { Paper } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -22,13 +23,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    //minHeight: "20vh",
+    //minHeight: "70vh",
     minHeight: "calc(100vh - 280px)",
   },
   footer: {
     padding: theme.spacing(3, 2),
     marginTop: "auto",
-    backgroundColor: theme.palette.background.paper,
+    //backgroundColor: theme.palette.background.paper,
   },
 }));
 
@@ -36,8 +37,8 @@ export default function SiteFooter() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <footer className={classes.footer}>
+    <div id="bottom-anchor" className={classes.root}>
+      <Paper className={classes.footer} elevation={24}>
         <Container maxWidth="lg">
           <Typography variant="overline">
             Keep track of all the Events in your life!
@@ -50,7 +51,7 @@ export default function SiteFooter() {
 
           <Copyright />
         </Container>
-      </footer>
+      </Paper>
     </div>
   );
 }

@@ -25,9 +25,9 @@ const AppThemeToggler = () => {
   return (
     <Tooltip title={"Toggle light/dark mode"} arrow enterDelay={500}>
       <IconButton
-        disableFocusRipple
+        /* disableFocusRipple
         disableRipple
-        disableTouchRipple
+        disableTouchRipple */
         //className={css(styles.iconEffect)}
         className={classes.iconEffect}
         color="inherit"

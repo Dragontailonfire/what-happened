@@ -14,16 +14,19 @@ export const lightTheme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: blue[900],
       //main: "#4cba71",
-      //main: "#9745ff",
+      main: "#9745ff",
+      //main: blue[900],
     },
     secondary: {
-      main: yellow[900],
       //main: "#9745ff",
-      //main: "#4cba71",
+      main: "#4cba71",
+      //main: yellow[900],
     },
-    background: { default: grey[200], paper: common["white"] }, //common["white"]
+    //background: { default: grey[100], paper: common["white"] }, //common["white"]
+  },
+  shape: {
+    borderRadius: 5,
   },
 
   props: {
@@ -38,16 +41,53 @@ export const lightTheme = createMuiTheme({
   overrides: {
     MuiButton: {
       contained: {
+        textTransform: "none",
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        borderRadius: 30,
+        borderRadius: 5,
+        borderColor: "#4cba71", //common["black"],
+        //border: "3px solid",
         //color: "black",
         //padding: "0 30px",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+          /* borderColor: "#4cba71", //common["black"],
+          border: "5px solid", */
+        },
+      },
+      outlined: {
+        textTransform: "none",
+        //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
+        borderRadius: 5,
+        //borderColor: "#4cba71", //common["black"],
+
+        //color: "black",
+        //padding: "0 30px",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+          border: "3px solid",
+          /* borderColor: "#4cba71", //common["black"],
+          border: "5px solid", */
+        },
       },
       text: {
+        textTransform: "none",
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        //borderRadius: 0,
+        borderRadius: 5,
+        borderColor: "#4cba71", //common["black"],
+        //border: "2px solid",
         //color: "black",
         //padding: "0 30px",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+          /* borderColor: "#4cba71", //common["black"],
+          border: "5px solid", */
+        },
       },
     },
     MuiCard: {
@@ -78,6 +118,9 @@ export const lightTheme = createMuiTheme({
       },
     }, */
   },
+  typography: {
+    fontFamily: ["Open Sans", "Roboto", "Ubuntu", "Helvetica"].join(","),
+  },
 });
 
 export const darkTheme = createMuiTheme({
@@ -85,14 +128,25 @@ export const darkTheme = createMuiTheme({
     type: "dark",
     primary: {
       //main: "#4cba71",
+      //main: "#9745ff",
       main: blue[900],
     },
     secondary: {
       //main: "#9745ff",
+      //main: "#4cba71",
       main: yellow[900],
     },
+    text: {
+      primary: blue[50],
+    },
+
     //background: { default: grey["A400"], paper: grey[800] },
+    //background: { default: common["black"], paper: blueGrey[900] },
+    //background: { default: "#000a12", paper: blueGrey[900] },
     background: { default: blueGrey[900], paper: blueGrey[800] },
+  },
+  shape: {
+    borderRadius: 5,
   },
   props: {
     MuiIconButton: {
@@ -106,16 +160,52 @@ export const darkTheme = createMuiTheme({
   overrides: {
     MuiButton: {
       contained: {
+        textTransform: "none",
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        borderRadius: 30,
+        borderRadius: 5,
+        borderColor: "#4cba71", //common["black"],
+        //border: "3px solid",
         //color: "black",
         //padding: "0 30px",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+          /* borderColor: "#4cba71", //common["black"],
+          border: "5px solid", */
+        },
+      },
+      outlined: {
+        textTransform: "none",
+        //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
+        borderRadius: 5,
+        //borderColor: "#4cba71", //common["black"],
+        //color: "black",
+        //padding: "0 30px",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+          border: "3px solid",
+          /* borderColor: "#4cba71", //common["black"],
+          border: "5px solid", */
+        },
       },
       text: {
+        textTransform: "none",
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        //borderRadius: 0,
+        borderRadius: 5,
+        borderColor: "#4cba71", //common["black"],
+        //border: "2px solid",
         //color: "black",
         //padding: "0 30px",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+          /* borderColor: "#4cba71", //common["black"],
+          border: "5px solid", */
+        },
       },
     },
     MuiCard: {
@@ -145,6 +235,9 @@ export const darkTheme = createMuiTheme({
         //disableUnderline: true,
       },
     },
+  },
+  typography: {
+    fontFamily: ["Open Sans", "Roboto", "Ubuntu", "Helvetica"].join(","),
   },
 });
 

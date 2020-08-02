@@ -41,8 +41,8 @@ export default function EventItemLoader(key) {
       <Card
         id={key}
         className={classes.root}
-        variant="outlined"
-        elevation={15}
+        variant="elevation"
+        elevation={0}
       >
         <CardHeader
           title={

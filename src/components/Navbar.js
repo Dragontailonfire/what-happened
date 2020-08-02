@@ -62,7 +62,7 @@ export default function NavBar(props) {
                     setOpenLoginDialog(true);
                   }}
                 >
-                  LOGIN
+                  Login
                 </Button>
               </Typography>
             </Toolbar>

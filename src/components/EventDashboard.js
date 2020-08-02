@@ -14,6 +14,7 @@ import QuickActions from "./common/QuickActions";
 import { IconButton, Paper } from "@material-ui/core";
 import { EventViewOptions } from "./EventViewOptions";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import Sticky from "react-stickynode";
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -22,27 +23,28 @@ const useStyles = makeStyles((theme) => ({
       //visibility: "hidden",
       display: "none",
     },
-    position: "sticky",
-    top: 70,
+    /* position: "sticky",
+    top: 70, */
   },
   filterPanel: {
     [theme.breakpoints.down("md")]: {
       //visibility: "hidden",
       display: "none",
     },
-    position: "sticky",
-    top: 70,
+    /* position: "sticky",
+    top: 70, */
   },
   view: {
-    padding: theme.spacing(2),
-    borderRadius: 15,
+    display: "flex",
+    padding: theme.spacing(1),
+    borderRadius: 5,
     /* position: "sticky",
     top: 70,
     zIndex: 5, */
   },
   mainEventList: {
-    position: "sticky",
-    top: 70,
+    /* position: "sticky",
+    top: 70, */
   },
 }));
 
@@ -76,19 +78,29 @@ export default function EventDashboard() {
             justify="center"
             alignItems="flex-start"
           >
-            <Grid className={classes.manageEvents} item md={4}>
-              <EventModificationPanel />
-              <br />
-              <Paper component="div" className={classes.view} elevation={0}>
-                <EventViewOptions />
-              </Paper>
+            <Grid item className={classes.filterPanel} md={3}>
+              <Sticky enabled={true} top={120} bottomBoundary="#bottom-anchor">
+                <>
+                  <EventViewOptions />
+                </>
+                <br />
+                <EventSortFilterPanel />
+              </Sticky>
             </Grid>
-            <Grid className={classes.mainEventList} item lg={5} xs={11}>
+            <Grid
+              className={classes.mainEventList}
+              item
+              lg={5}
+              xs={11}
+            >
               <FinalSortedFilteredEventList />
             </Grid>
-            <Grid item className={classes.filterPanel} md={3}>
-              <EventSortFilterPanel />
+            <Grid className={classes.manageEvents} item md={4}>
+              <Sticky enabled={true} top={120} bottomBoundary="#bottom-anchor">
+                <EventModificationPanel />
+              </Sticky>
             </Grid>
+
             <Grid item>
               <QuickActions />
             </Grid>
