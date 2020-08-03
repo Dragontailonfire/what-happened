@@ -80,23 +80,18 @@ export default function EventDashboard() {
           >
             <Grid item className={classes.filterPanel} md={3}>
               <Sticky enabled={true} top={120} bottomBoundary="#bottom-anchor">
-                <>
-                  <EventViewOptions />
-                </>
-                <br />
                 <EventSortFilterPanel />
               </Sticky>
             </Grid>
-            <Grid
-              className={classes.mainEventList}
-              item
-              lg={5}
-              xs={11}
-            >
+            <Grid className={classes.mainEventList} item lg={5} xs={11}>
               <FinalSortedFilteredEventList />
             </Grid>
             <Grid className={classes.manageEvents} item md={4}>
               <Sticky enabled={true} top={120} bottomBoundary="#bottom-anchor">
+                <Paper component="div" className={classes.view} elevation={0}>
+                  <EventViewOptions />
+                </Paper>
+                <br />
                 <EventModificationPanel />
               </Sticky>
             </Grid>

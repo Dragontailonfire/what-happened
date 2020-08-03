@@ -23,7 +23,7 @@ const defaultEventTags = [
   { tagName: "Work", colour: "#e8123c" },
   { tagName: "Vehicle", colour: "#8c7219" },
   { tagName: "Insurance", colour: "#3d8180" },
-  /* { tagName: "Neudesic", colour: "#e03400" },
+  { tagName: "Neudesic", colour: "#e03400" },
   { tagName: "CTS", colour: "#885cd3" },
   { tagName: "Health", colour: "#4d67fc" },
   { tagName: "Fitness", colour: "#217ea8" },
@@ -33,7 +33,7 @@ const defaultEventTags = [
   { tagName: "Important", colour: "#ea0049" },
   { tagName: "Personal", colour: "#c500e8" },
   { tagName: "To Do", colour: "#038468" },
-  { tagName: "Learning", colour: "#7a7a00" }, */
+  { tagName: "Learning", colour: "#7a7a00" },
 ];
 
 const colourLibrary = [
