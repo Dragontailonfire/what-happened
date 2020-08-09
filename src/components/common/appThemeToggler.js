@@ -35,7 +35,7 @@ const AppThemeToggler = () => {
           dispatch(appActions.toggleAppTheme(newTheme));
         }}
       >
-        {currentTheme ? <DarkModeIcon /> : <LightModeIcon />}
+        {currentTheme ? <LightModeIcon /> : <DarkModeIcon />}
       </IconButton>
     </Tooltip>
   );

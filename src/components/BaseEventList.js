@@ -36,15 +36,15 @@ export const BaseEventList = ({ eventsToShow }) => {
     deepPurple["A100"],
     indigo["A100"],
     blue["A100"],
-    lightBlue["A100"],
-    cyan["A100"],
-    teal["A100"],
-    green["A100"],
-    lightGreen["A100"],
-    lime["A100"],
-    yellow["A100"],
-    amber["A100"],
-    orange["A100"],
+    //lightBlue["A100"],
+    //cyan["A100"],
+    //teal["A100"],
+    //green["A100"],
+    //lightGreen["A100"],
+    //lime["A100"],
+    //yellow["A100"],
+    //amber["A100"],
+    //orange["A100"],
     deepOrange["A100"],
   ];
 
@@ -103,6 +103,24 @@ export const BaseEventList = ({ eventsToShow }) => {
     amber["A700"],
     orange["A700"],
     deepOrange["A700"],
+  ];
+
+  const colourLibrary = [
+    "#236fed",
+    "#e8123c",
+    "#8c7219",
+    "#3d8180",
+    "#e03400",
+    "#885cd3",
+    "#4d67fc",
+    "#217ea8",
+    "#398700",
+    "#737a18",
+    "#ce4700",
+    "#ea0049",
+    "#c500e8",
+    "#038468",
+    "#7a7a00",
   ];
 
   return (
@@ -174,7 +192,7 @@ export const BaseEventList = ({ eventsToShow }) => {
               key={e.id}
               id={e.id}
               title={e.title}
-              cardColor={_.sample(colourLibraryA7)}
+              cardColor={_.sample(colourLibrary)}
               duration={currentDuration}
               startDate={e.startDate}
               description={e.description}
@@ -187,7 +205,6 @@ export const BaseEventList = ({ eventsToShow }) => {
               setReminder={e.setReminder}
               completedEvent={e.completedEvent}
             />
-            <br />
             <br />
           </>
         );

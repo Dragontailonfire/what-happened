@@ -8,7 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 export default function NotificationEventItemLoader() {
   const useStyles = makeStyles((theme) => ({
     root: {
-      borderRadius: 5,
+      //borderRadius: 25,
       borderColor: theme.palette.background.default,
     },
     titleSkeleton: {

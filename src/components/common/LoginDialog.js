@@ -53,7 +53,7 @@ export default function AddEventDialog(props) {
               <Controller
                 as={TextField}
                 color="secondary"
-                variant="filled"
+                variant="outlined"
                 label="Username"
                 name="username"
                 margin="none"
@@ -78,7 +78,7 @@ export default function AddEventDialog(props) {
                 InputProps={{
                   type: "password",
                 }}
-                variant="filled"
+                variant="outlined"
                 name="password"
                 id="password"
                 label="Password"

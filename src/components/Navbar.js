@@ -8,7 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppThemeToggler from "./common/appThemeToggler";
 import IconButton from "@material-ui/core/IconButton";
-import MainLogo from "@material-ui/icons/DashboardTwoTone";
+import MainLogo from "@material-ui/icons/ToysTwoTone";
 import { Slide, Button, Container } from "@material-ui/core";
 import NotificationPopup from "./common/NotificationPopup";
 import LoginDialog from "./common/LoginDialog";
@@ -42,12 +42,12 @@ export default function NavBar(props) {
   return (
     <>
       <HideOnScroll {...props}>
-        <AppBar color="primary" position="fixed" elevation={trigger ? 10 : 0}>
+        <AppBar color="inherit" position="fixed" elevation={trigger ? 10 : 0}>
           <Container maxWidth="lg">
             <Toolbar variant="regular">
               <Link to="/">
-                <IconButton color="secondary">
-                  <MainLogo />
+                <IconButton color="primary">
+                  <MainLogo fontSize="large" />
                 </IconButton>
               </Link>
               <Typography variant="h6">What Happened?</Typography>

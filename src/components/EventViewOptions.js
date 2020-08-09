@@ -7,7 +7,9 @@ import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import ArchiveIcon from "@material-ui/icons/ArchiveTwoTone";
 import FavouriteIcon from "@material-ui/icons/FavoriteTwoTone";
 import DoneAllIcon from "@material-ui/icons/DoneAllTwoTone";
+import ClearIcon from "@material-ui/icons/Clear";
 import { green, pink, blueGrey } from "@material-ui/core/colors";
+import { Typography } from "@material-ui/core";
 
 export const EventViewOptions = () => {
   const dispatch = useDispatch();
@@ -35,32 +37,50 @@ export const EventViewOptions = () => {
               aria-label="archived"
             >
               {" "}
-              {eventStateView === "Archived" ? "ARCHIVED" : ""}
-              <ArchiveIcon
-              //fontSize={eventStateView === "Archived" ? "large" : "default"}
-              />
+              {eventStateView === "Archived" ? (
+                <>
+                  <Typography variant="button">Archived </Typography>
+                  <ClearIcon />
+                </>
+              ) : (
+                <ArchiveIcon
+                //fontSize={eventStateView === "Archived" ? "large" : "default"}
+                />
+              )}
             </ToggleButton>
             <ToggleButton
               style={{ color: pink["A400"] }}
               value="Favourites"
               aria-label="favourites"
             >
-              {" "}
-              {eventStateView === "Favourites" ? "Favourites" : ""}
-              <FavouriteIcon
-              //fontSize={eventStateView === "Favourites" ? "large" : "default"}
-              />
+              {eventStateView === "Favourites" ? (
+                <>
+                  <Typography variant="button">Favourites </Typography>
+                  <ClearIcon />
+                </>
+              ) : (
+                <FavouriteIcon
+                //fontSize={eventStateView === "Favourites" ? "large" : "default"}
+                />
+              )}
             </ToggleButton>
             <ToggleButton
               style={{ color: green["A700"] }}
               value="Completed"
               aria-label="completed"
             >
-              {" "}
-              {eventStateView === "Completed" ? "Completed" : ""}
-              <DoneAllIcon
-              //fontSize={eventStateView === "Completed" ? "large" : "default"}
-              />
+              {eventStateView === "Completed" ? (
+                <>
+                  <Typography variant="button">Completed </Typography>
+                  <ClearIcon />
+                </>
+              ) : (
+                <>
+                  <DoneAllIcon
+                  //fontSize={eventStateView === "Completed" ? "large" : "default"}
+                  />
+                </>
+              )}
             </ToggleButton>
           </ToggleButtonGroup>
         </Grid>

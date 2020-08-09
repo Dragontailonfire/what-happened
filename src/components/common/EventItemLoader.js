@@ -9,7 +9,7 @@ import CardActions from "@material-ui/core/CardActions";
 export default function EventItemLoader(key) {
   const useStyles = makeStyles((theme) => ({
     root: {
-      borderRadius: 5,
+      //borderRadius: 25,
       borderColor: theme.palette.background.default,
     },
     titleSkeleton: {

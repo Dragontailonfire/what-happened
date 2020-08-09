@@ -7,8 +7,8 @@ import { EventViewOptions } from "./EventViewOptions";
 export const EventSortFilterPanel = () => {
   const useStyles = makeStyles((theme) => ({
     tags: {
-      padding: theme.spacing(1),
-      borderRadius: 5,
+      padding: theme.spacing(0),
+      //borderRadius: 25,
     },
   }));
   const classes = useStyles();

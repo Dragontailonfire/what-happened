@@ -18,7 +18,7 @@ export default function NotificationEventItem({
 }) {
   const useStyles = makeStyles((theme) => ({
     root: {
-      borderRadius: 5,
+      //borderRadius: 25,
       borderColor: theme.palette.background.paper,
     },
   }));

@@ -14,14 +14,14 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/SettingsTwoTone";
 import DoneIcon from "@material-ui/icons/DoneRounded";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutlineRounded";
-import LabelIcon from "@material-ui/icons/LabelTwoTone";
+import LabelIcon from "@material-ui/icons/Label";
 import { green } from "@material-ui/core/colors";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import DeleteConfirmationDialog from "./common/DeleteConfirmationDialog";
 import { StyleSheet, css } from "aphrodite";
 import swing from "react-animations/lib/swing";
 import pulse from "react-animations/lib/pulse";
-import { Collapse } from "@material-ui/core";
+import { Button, Collapse } from "@material-ui/core";
 
 const styles = StyleSheet.create({
   iconEffectDelete: {
@@ -99,17 +99,22 @@ export default function EventTagList() {
     <div className={classes.roota}>
       <List component="div" aria-label="tag list">
         <ListItem
-          button={selectedTags.length > 0}
-          onClick={() => {
-            setEditMode(false);
-            setSelectedTags([]);
-          }}
+        //button={selectedTags.length > 0}
         >
           {selectedTags.length > 0 ? (
-            <ListItemText
-              style={{ color: "#e8123c" }}
-              primary="CLEAR FILTERS"
-            />
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              size="small"
+              style={{ backgroundColor: "#e8123c" }}
+              onClick={() => {
+                setEditMode(false);
+                setSelectedTags([]);
+              }}
+            >
+              CLEAR TAGS
+            </Button>
           ) : eventTagOptions.length > 0 ? (
             <ListItemText primary="Filter by Tags" />
           ) : (
@@ -136,7 +141,7 @@ export default function EventTagList() {
         {eventTagOptions.map((opt) => (
           <ListItem
             alignItems="center"
-            button
+            button={!selectedTags.find((tag) => tag.tagName === opt.tagName)}
             dense
             key={opt.tagName}
             onClick={(event) => {
@@ -155,7 +160,7 @@ export default function EventTagList() {
 
             {selectedTags.find((tag) => tag.tagName === opt.tagName) ? (
               <Chip
-                style={{ backgroundColor: opt.colour }}
+                style={{ backgroundColor: opt.colour, color: "#fff" }}
                 onDelete={handleClearFilterChip(opt.tagName)}
                 label={opt.tagName}
               />

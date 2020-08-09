@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
   },
   view: {
     display: "flex",
-    padding: theme.spacing(1),
-    borderRadius: 5,
+    padding: theme.spacing(0.5),
+    //borderRadius: 25,
     /* position: "sticky",
     top: 70,
     zIndex: 5, */
@@ -91,7 +91,7 @@ export default function EventDashboard() {
                 <Paper component="div" className={classes.view} elevation={0}>
                   <EventViewOptions />
                 </Paper>
-                <br />
+                <br /> <br />
                 <EventModificationPanel />
               </Sticky>
             </Grid>

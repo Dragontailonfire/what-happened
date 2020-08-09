@@ -144,7 +144,7 @@ export default function NotificationPopup() {
       >
         <Badge
           badgeContent={itemsCount}
-          color="secondary"
+          color="primary"
           anchorOrigin={{
             vertical: "top",
             horizontal: "right",

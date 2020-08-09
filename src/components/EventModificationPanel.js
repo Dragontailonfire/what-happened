@@ -26,7 +26,7 @@ export const EventModificationPanel = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       padding: theme.spacing(1),
-      borderRadius: 5,
+      //borderRadius: 25,
     },
   }));
   const classes = useStyles();

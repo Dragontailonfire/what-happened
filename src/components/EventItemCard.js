@@ -14,14 +14,14 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import ArchiveIcon from "@material-ui/icons/ArchiveOutlined";
-import UnarchiveSharpIcon from "@material-ui/icons/UnarchiveTwoTone";
-import DeleteIcon from "@material-ui/icons/DeleteForeverTwoTone";
-import EditIcon from "@material-ui/icons/EditTwoTone";
+import ArchiveIcon from "@material-ui/icons/ArchiveRounded";
+import UnarchiveSharpIcon from "@material-ui/icons/UnarchiveRounded";
+import DeleteIcon from "@material-ui/icons/DeleteForeverRounded";
+import EditIcon from "@material-ui/icons/EditRounded";
 import FavouriteIcon from "@material-ui/icons/FavoriteTwoTone";
 import DoneIcon from "@material-ui/icons/DoneRounded";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMoreRounded";
-import LabelIcon from "@material-ui/icons/LabelRounded";
+import LabelIcon from "@material-ui/icons/Stop";
 import PinnedIcon from "@material-ui/icons/PinDropTwoTone";
 import GradeIcon from "@material-ui/icons/GradeTwoTone";
 import { pink, green, red, yellow, common } from "@material-ui/core/colors";
@@ -36,7 +36,7 @@ import { ButtonGroup } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    borderRadius: 5,
+    //borderRadius: 25,
     transition: "0.1s",
     "&:hover": {
       //transform: "translateY(-10px)",
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     /* marginRight: -9,
     marginBottom: -8, */
-    borderRadius: 5,
+    //borderRadius: 25,
     //marginTop: -10,
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.short,
@@ -65,6 +65,11 @@ const useStyles = makeStyles((theme) => ({
   },
   tags: { marginLeft: "auto" },
   selectedFavouriteIcon: { color: pink["A400"] },
+  tagDisplay: {
+    marginRight: -20,
+    marginBottom: -60,
+    marginLeft: 10,
+  },
 }));
 
 const styles = StyleSheet.create({
@@ -160,7 +165,20 @@ export const EventItemCard = (props) => {
   };
 
   return (
-    <>
+    <div>
+      <div>
+        <Typography gutterBottom>
+          {props.tags.map((tag) => (
+            <Tooltip key={tag.tagName} title={tag.tagName} arrow interactive>
+              <LabelIcon
+                className={classes.tagDisplay}
+                htmlColor={tag.colour}
+                fontSize="medium"
+              />
+            </Tooltip>
+          ))}
+        </Typography>
+      </div>
       <Card
         //square
         id={"event-item-" + props.id}
@@ -174,7 +192,7 @@ export const EventItemCard = (props) => {
       >
         <CardHeader
           title={
-            <Typography id={"event-title-" + props.id} variant="h5">
+            <Typography id={"event-title-" + props.id} variant="h6">
               {props.title}
             </Typography>
           }
@@ -229,13 +247,7 @@ export const EventItemCard = (props) => {
           >
             {props.duration}
           </Typography>
-          <Typography className={classes.tags} gutterBottom>
-            {props.tags.map((tag) => (
-              <Tooltip key={tag.tagName} title={tag.tagName} arrow interactive>
-                <LabelIcon htmlColor={tag.colour} fontSize="large" />
-              </Tooltip>
-            ))}
-          </Typography>
+
           <Collapse in={expanded} /* timeout="auto" unmountOnExit */>
             <Typography id={"event-description-" + props.id} variant="body1">
               {props.description}
@@ -254,6 +266,18 @@ export const EventItemCard = (props) => {
               variant="body1"
             >
               {"Event Duration: " + props.detailedDuration}
+            </Typography>
+            <Typography gutterBottom>
+              {props.tags.map((tag) => (
+                <Tooltip
+                  key={tag.tagName}
+                  title={tag.tagName}
+                  arrow
+                  interactive
+                >
+                  <LabelIcon htmlColor={tag.colour} fontSize="medium" />
+                </Tooltip>
+              ))}
             </Typography>
           </Collapse>
         </CardContent>
@@ -336,6 +360,6 @@ export const EventItemCard = (props) => {
         open={openDeleteDialog}
         handleClose={handleDeleteDialogClose}
       />
-    </>
+    </div>
   );
 };

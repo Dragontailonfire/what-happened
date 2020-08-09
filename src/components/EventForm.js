@@ -157,7 +157,7 @@ export const EventForm = (props) => {
             as={TextField}
             fullWidth
             color="secondary"
-            variant="standard"
+            variant="outlined"
             label={
               errors.title && errors.title.type === "required"
                 ? "Give a title to this Event"
@@ -189,7 +189,7 @@ export const EventForm = (props) => {
               rules={{ required: true }}
               error={errors.startDate ? true : false}
               size="small"
-              inputVariant="standard"
+              inputVariant="outlined"
               variant="inline"
               format="dd/MM/yyyy"
               color="secondary"
@@ -202,6 +202,100 @@ export const EventForm = (props) => {
           </MuiPickersUtilsProvider>
         </Grid>
         <Grid item xs={12}>
+          <Controller
+            as={TextField}
+            control={control}
+            color="secondary"
+            size="small"
+            margin="none"
+            fullWidth
+            //multiline
+            variant="outlined"
+            name="description"
+            id="description"
+            placeholder="The details"
+            label="Description"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            id="eventTags"
+            name="eventTags"
+            control={control}
+            onChange={(event) => {
+              return event[1];
+            }}
+            as={
+              <Autocomplete
+                multiple
+                freeSolo
+                blurOnSelect
+                autoHighlight
+                filterSelectedOptions
+                selectOnFocus
+                limitTags={3}
+                ChipProps={{ color: "primary", size: "small" }}
+                /* ChipProps={(eventTagOptions) => {
+                    let existingTag = eventTagOptions.filter(
+                      ((opt) => color: opt.colour)
+                    );
+                  }} */
+                options={eventTagOptions}
+                filterOptions={(options, params) => {
+                  const filtered = filter(options, params);
+                  let existingTag = options.filter((opt) =>
+                    TextUtils.TextCompare(opt.tagName, params.inputValue)
+                  );
+                  // Suggest the creation of a new value
+                  if (params.inputValue !== "" && existingTag.length === 0) {
+                    filtered.push({
+                      newTag: params.inputValue,
+                      tagName: `Add "${params.inputValue}"`,
+                    });
+                  }
+
+                  return filtered;
+                }}
+                getOptionLabel={(option) => {
+                  // Value selected with enter, right from the input
+                  if (typeof option === "string") {
+                    return option;
+                  }
+                  // Add "xxx" option created dynamically
+                  if (option.newTag) {
+                    return option.newTag;
+                  }
+                  // Regular option
+                  return option.tagName;
+                }}
+                renderOption={(option) => option.tagName}
+                //defaultValue={[]}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Tags"
+                    color="secondary"
+                    size="small"
+                    placeholder="Assign tags"
+                  />
+                )}
+                /* renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip
+                        color="primary"
+                        variant="default"
+                        label={option.tagName}
+                        size="small"
+                        {...getTagProps({ index })}
+                      />
+                    ))
+                  } */
+              />
+            }
+          />
+        </Grid>
+        <Grid item xs={12}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Controller
               disabled={!completedEventSwitch}
@@ -211,7 +305,7 @@ export const EventForm = (props) => {
               control={control}
               autoOk
               size="small"
-              inputVariant="standard"
+              inputVariant="outlined"
               rules={{
                 required: true,
                 validate: validateEndDate,
@@ -309,100 +403,7 @@ export const EventForm = (props) => {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
-          <Controller
-            as={TextField}
-            control={control}
-            color="secondary"
-            size="small"
-            margin="none"
-            fullWidth
-            //multiline
-            variant="standard"
-            name="description"
-            id="description"
-            placeholder="The details"
-            label="Description"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Controller
-            id="eventTags"
-            name="eventTags"
-            control={control}
-            onChange={(event) => {
-              return event[1];
-            }}
-            as={
-              <Autocomplete
-                multiple
-                freeSolo
-                blurOnSelect
-                autoHighlight
-                filterSelectedOptions
-                selectOnFocus
-                limitTags={3}
-                ChipProps={{ color: "primary", size: "small" }}
-                /* ChipProps={(eventTagOptions) => {
-                    let existingTag = eventTagOptions.filter(
-                      ((opt) => color: opt.colour)
-                    );
-                  }} */
-                options={eventTagOptions}
-                filterOptions={(options, params) => {
-                  const filtered = filter(options, params);
-                  let existingTag = options.filter((opt) =>
-                    TextUtils.TextCompare(opt.tagName, params.inputValue)
-                  );
-                  // Suggest the creation of a new value
-                  if (params.inputValue !== "" && existingTag.length === 0) {
-                    filtered.push({
-                      newTag: params.inputValue,
-                      tagName: `Add "${params.inputValue}"`,
-                    });
-                  }
 
-                  return filtered;
-                }}
-                getOptionLabel={(option) => {
-                  // Value selected with enter, right from the input
-                  if (typeof option === "string") {
-                    return option;
-                  }
-                  // Add "xxx" option created dynamically
-                  if (option.newTag) {
-                    return option.newTag;
-                  }
-                  // Regular option
-                  return option.tagName;
-                }}
-                renderOption={(option) => option.tagName}
-                //defaultValue={[]}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Tags"
-                    color="secondary"
-                    size="small"
-                    placeholder="Assign tags"
-                  />
-                )}
-                /* renderTags={(value, getTagProps) =>
-                    value.map((option, index) => (
-                      <Chip
-                        color="primary"
-                        variant="default"
-                        label={option.tagName}
-                        size="small"
-                        {...getTagProps({ index })}
-                      />
-                    ))
-                  } */
-              />
-            }
-          />
-        </Grid>
         <Grid item xs="auto">
           {props.edit ? (
             <Button

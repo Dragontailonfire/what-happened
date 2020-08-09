@@ -12,7 +12,7 @@ import { green, blueGrey, red } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(5),
-    borderRadius: 5,
+    //borderRadius: 25,
   },
 }));
 
