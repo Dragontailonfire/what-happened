@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
   navBarButton: { marginLeft: "auto" },
   loginButton: {
+    marginLeft: 5,
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.light,
   },
@@ -47,10 +48,10 @@ export default function NavBar(props) {
             <Toolbar variant="regular">
               <Link to="/">
                 <IconButton color="primary">
-                  <MainLogo fontSize="large" />
+                  <MainLogo />
                 </IconButton>
               </Link>
-              <Typography variant="h6">What Happened?</Typography>
+              <Typography variant="body1">What Happened?</Typography>
               <Typography className={classes.navBarButton}>
                 <NotificationPopup />
                 <AppThemeToggler />

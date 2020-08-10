@@ -32,11 +32,15 @@ import jello from "react-animations/lib/jello";
 import swing from "react-animations/lib/swing";
 import flip from "react-animations/lib/flip";
 import bounceOut from "react-animations/lib/bounceOut";
-import { ButtonGroup } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    //borderRadius: 25,
+    //borderRadius: 15,
+    //borderTopLeftRadius: 0,
+    //borderBottomLeftRadius: 0,
+    //borderColor: "#9745ff",
+    //borderRight: "5px solid",
+    borderLeft: "5px solid",
     transition: "0.1s",
     "&:hover": {
       //transform: "translateY(-10px)",
@@ -187,8 +191,8 @@ export const EventItemCard = (props) => {
           [classes.editMode]: expanded,
         })}
         variant="elevation"
-        elevation={0}
-        style={{ backgroundColor: props.cardColor }}
+        elevation={24}
+        style={{ borderColor: props.cardColor }}
       >
         <CardHeader
           title={
@@ -262,12 +266,12 @@ export const EventItemCard = (props) => {
             )}
             <Typography
               id={"event-total-duration-" + props.id}
-              //gutterBottom
+              gutterBottom
               variant="body1"
             >
               {"Event Duration: " + props.detailedDuration}
             </Typography>
-            <Typography gutterBottom>
+            <Typography >
               {props.tags.map((tag) => (
                 <Tooltip
                   key={tag.tagName}
@@ -281,7 +285,14 @@ export const EventItemCard = (props) => {
             </Typography>
           </Collapse>
         </CardContent>
-        <Divider variant="middle" />
+        {/* <Divider
+          variant="middle"
+          style={{
+            //backgroundColor: props.cardColor,
+            borderColor: props.cardColor,
+            //border: "1px solid",
+          }}
+        /> */}
         <CardActions disableSpacing>
           <Tooltip title={props.edit ? "Editing..." : "Edit this event"} arrow>
             <IconButton
@@ -316,7 +327,7 @@ export const EventItemCard = (props) => {
               {props.archived ? (
                 <UnarchiveSharpIcon color="secondary" />
               ) : (
-                <ArchiveIcon />
+                <ArchiveIcon /* style={{ color: props.cardColor }} */ />
               )}
             </IconButton>
           </Tooltip>
@@ -333,7 +344,7 @@ export const EventItemCard = (props) => {
                 setOpenDeleteDialog(true);
               }}
             >
-              <DeleteIcon fontSize="inherit" />
+              <DeleteIcon fontSize="inherit" color="error" />
             </IconButton>
           </Tooltip>
           <Button
@@ -346,7 +357,8 @@ export const EventItemCard = (props) => {
             id={"event-expand-button-" + props.id}
             aria-expanded={expanded}
             aria-label="show more"
-            color="secondary"
+            color="default"
+            style={{ backgroundColor: props.cardColor }}
             variant="contained"
             size="small"
           >

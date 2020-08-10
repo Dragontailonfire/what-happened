@@ -157,7 +157,7 @@ export const EventForm = (props) => {
             as={TextField}
             fullWidth
             color="secondary"
-            variant="outlined"
+            variant="filled"
             label={
               errors.title && errors.title.type === "required"
                 ? "Give a title to this Event"
@@ -189,7 +189,7 @@ export const EventForm = (props) => {
               rules={{ required: true }}
               error={errors.startDate ? true : false}
               size="small"
-              inputVariant="outlined"
+              inputVariant="filled"
               variant="inline"
               format="dd/MM/yyyy"
               color="secondary"
@@ -210,7 +210,7 @@ export const EventForm = (props) => {
             margin="none"
             fullWidth
             //multiline
-            variant="outlined"
+            variant="filled"
             name="description"
             id="description"
             placeholder="The details"
@@ -273,7 +273,7 @@ export const EventForm = (props) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    variant="outlined"
+                    variant="filled"
                     label="Tags"
                     color="secondary"
                     size="small"
@@ -305,7 +305,7 @@ export const EventForm = (props) => {
               control={control}
               autoOk
               size="small"
-              inputVariant="outlined"
+              inputVariant="filled"
               rules={{
                 required: true,
                 validate: validateEndDate,

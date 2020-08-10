@@ -28,6 +28,7 @@ import isFuture from "date-fns/isFuture";
 
 const styles = StyleSheet.create({
   iconEffect: {
+    marginRight: 20,
     ":hover": {
       animationName: shake,
       animationDuration: "0.7s",
@@ -140,6 +141,7 @@ export default function NotificationPopup() {
         aria-describedby={id}
         variant="contained"
         color="inherit"
+        size="small"
         onClick={handleClick}
       >
         <Badge

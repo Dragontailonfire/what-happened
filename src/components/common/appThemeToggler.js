@@ -7,7 +7,7 @@ import DarkModeIcon from "@material-ui/icons/NightsStayTwoTone";
 
 const useStyles = makeStyles((theme) => ({
   iconEffect: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(2),
     transition: "0.1s",
     "&:hover": {
       //backgroundColor: "transparent",
@@ -31,6 +31,7 @@ const AppThemeToggler = () => {
         //className={css(styles.iconEffect)}
         className={classes.iconEffect}
         color="inherit"
+        size="small"
         onClick={() => {
           dispatch(appActions.toggleAppTheme(newTheme));
         }}

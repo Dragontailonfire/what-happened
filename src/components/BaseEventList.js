@@ -192,7 +192,7 @@ export const BaseEventList = ({ eventsToShow }) => {
               key={e.id}
               id={e.id}
               title={e.title}
-              cardColor={_.sample(colourLibrary)}
+              cardColor={_.sample(colourLibraryA7)}
               duration={currentDuration}
               startDate={e.startDate}
               description={e.description}
