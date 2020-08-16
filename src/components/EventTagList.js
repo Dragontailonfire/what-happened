@@ -13,7 +13,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/SettingsTwoTone";
 import DoneIcon from "@material-ui/icons/DoneRounded";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutlineRounded";
+import DeleteOutlineIcon from "@material-ui/icons/Remove";
 import LabelIcon from "@material-ui/icons/Label";
 import { green } from "@material-ui/core/colors";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -21,7 +21,13 @@ import DeleteConfirmationDialog from "./common/DeleteConfirmationDialog";
 import { StyleSheet, css } from "aphrodite";
 import swing from "react-animations/lib/swing";
 import pulse from "react-animations/lib/pulse";
-import { Button, Collapse } from "@material-ui/core";
+import {
+  Button,
+  Collapse,
+  Typography,
+  Paper,
+  Tooltip,
+} from "@material-ui/core";
 
 const styles = StyleSheet.create({
   iconEffectDelete: {
@@ -41,9 +47,13 @@ const styles = StyleSheet.create({
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    padding: theme.spacing(2),
+    //backgroundColor: theme.palette.background.default,
+    //borderRadius: 25,
+    /* display: "flex",
     flexDirection: "column",
     textAlign: "center",
-    maxHeight: "100px",
+    maxHeight: "100px", */
   },
 }));
 
@@ -96,7 +106,10 @@ export default function EventTagList() {
     );
   };
   return (
-    <div className={classes.roota}>
+    <Paper
+      className={classes.root}
+      elevation={(selectedTags.length > 0) | editMode ? 10 : 0}
+    >
       <List component="div" aria-label="tag list">
         <ListItem
         //button={selectedTags.length > 0}
@@ -116,14 +129,13 @@ export default function EventTagList() {
               CLEAR TAGS
             </Button>
           ) : eventTagOptions.length > 0 ? (
-            <ListItemText primary="Filter by Tags" />
+            <Typography variant="h6">Filter by tags</Typography>
           ) : (
-            <ListItemText primary="Tags" />
+            <Typography variant="h6">Tags</Typography>
           )}
 
           <ListItemSecondaryAction>
             <IconButton
-              className={css(styles.iconEffectEdit)}
               edge="end"
               onClick={() => {
                 setEditMode(!editMode);
@@ -131,9 +143,11 @@ export default function EventTagList() {
               aria-label="manageTags"
             >
               {editMode && eventTagOptions.length > 0 ? (
-                <DoneIcon htmlColor={green["A700"]} />
+                <DoneIcon htmlColor={green["A700"]} fontSize="large" />
               ) : (
-                <EditIcon />
+                <Tooltip title={"Manage Tags"} arrow>
+                  <EditIcon className={css(styles.iconEffectEdit)} />
+                </Tooltip>
               )}
             </IconButton>
           </ListItemSecondaryAction>
@@ -175,12 +189,12 @@ export default function EventTagList() {
                   setOpenDeleteDialog(true);
                 }}
               >
-                <IconButton
-                  className={css(styles.iconEffectDelete)}
-                  edge="end"
-                  aria-label="delete Tag"
-                >
-                  <DeleteOutlineIcon color="error" />
+                <IconButton edge="end" aria-label="delete Tag" size="small">
+                  <DeleteOutlineIcon
+                    className={css(styles.iconEffectDelete)}
+                    color="error"
+                    fontSize="large"
+                  />
                 </IconButton>
               </ListItemSecondaryAction>
             )}
@@ -199,6 +213,6 @@ export default function EventTagList() {
         open={openDeleteDialog}
         handleClose={handleDeleteDialogClose}
       />
-    </div>
+    </Paper>
   );
 }

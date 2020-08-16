@@ -12,13 +12,13 @@ import ManageFilterDialog from "./ManageFilterDialog";
 const useStyles = makeStyles((theme) => ({
   scrollButton: {
     position: "fixed",
-    bottom: theme.spacing(5),
-    right: theme.spacing(5),
+    bottom: theme.spacing(8),
+    right: theme.spacing(2),
   },
   addButton: {
     position: "fixed",
     bottom: theme.spacing(12),
-    right: theme.spacing(4),
+    right: theme.spacing(1),
     [theme.breakpoints.up("lg")]: {
       display: "none",
     },
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   filterButton: {
     position: "fixed",
     bottom: theme.spacing(21),
-    right: theme.spacing(4.5),
+    right: theme.spacing(1.5),
     [theme.breakpoints.up("lg")]: {
       display: "none",
     },
@@ -49,6 +49,7 @@ export default function QuickActions(props) {
     <>
       <div>
         <Fab
+          hidden
           className={classes.filterButton}
           color="secondary"
           size="medium"
@@ -60,6 +61,7 @@ export default function QuickActions(props) {
           <FilterListIcon />
         </Fab>
         <Fab
+          hidden
           className={classes.addButton}
           color="primary"
           size="large"

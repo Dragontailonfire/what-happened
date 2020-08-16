@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { EventForm } from "./EventForm";
 import Paper from "@material-ui/core/Paper";
 import { Button, Collapse, Grow, Zoom } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/AddBoxTwoTone";
+import AddIcon from "@material-ui/icons/AddCircle";
 
 const eventItemToEdit = createSelector(
   (state) => state.eventItems,
@@ -25,7 +25,8 @@ export const EventModificationPanel = () => {
   };
   const useStyles = makeStyles((theme) => ({
     root: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(2),
+      //backgroundColor: theme.palette.background.default,
       //borderRadius: 25,
     },
   }));
@@ -51,9 +52,11 @@ export const EventModificationPanel = () => {
             setDisplayForm(true);
           }}
           startIcon={<AddIcon />}
-          style={{
-            height: 375,
-          }}
+          style={
+            {
+              //height: 75,
+            }
+          }
         >
           New Event
         </Button>
@@ -63,7 +66,11 @@ export const EventModificationPanel = () => {
 
   return (
     <>
-      <Paper component="div" className={classes.root} elevation={0}>
+      <Paper
+        component="div"
+        className={classes.root}
+        elevation={displayForm ? 10 : 0}
+      >
         <Grow in={!displayForm}>
           <AddEventButton />
         </Grow>

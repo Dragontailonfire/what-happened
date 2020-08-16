@@ -5,6 +5,7 @@ import {
   Container,
   makeStyles,
   Button,
+  Typography,
 } from "@material-ui/core";
 import NavBar from "../Navbar";
 import SiteFooter from "../SiteFooter";
@@ -17,21 +18,24 @@ const useStyles = makeStyles((theme) => ({
 export default function AboutPage() {
   const classes = useStyles();
   return (
-    <ThemeProvider>
+    <ThemeProvider theme>
       <CssBaseline />
       <NavBar />
       <div className={classes.offset} />
       <Container maxWidth="lg">
-        <h1>About Us</h1>
-        <p>
-          This app uses React, Redux, React Router, and many other helpful
-          libraries.
-        </p>
-        <Link to="/" className="btn">
-          <Button color="primary" variant="contained" size="large">
-            Go home
-          </Button>
-        </Link>
+        <Typography variant="h1">
+          About
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          I am learning React!
+        </Typography>
+        <Typography variant="button">
+          <Link to="/" className="btn">
+            <Button color="primary" variant="contained" size="large">
+              Go home
+            </Button>
+          </Link>
+        </Typography>
       </Container>
       <SiteFooter />
     </ThemeProvider>

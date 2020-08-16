@@ -21,6 +21,7 @@ import {
   blueGrey,
   brown,
 } from "@material-ui/core/colors";
+import { applicationFonts } from "./constants";
 
 export const lightTheme = createMuiTheme({
   palette: {
@@ -38,14 +39,10 @@ export const lightTheme = createMuiTheme({
     //background: { default: grey[100], paper: common["white"] }, //common["white"]
   },
   shape: {
-    borderRadius: 5,
+    borderRadius: 30,
   },
 
   props: {
-    MuiIconButton: {
-      disableFocusRipple: false,
-      disableRipple: false,
-    },
     MuiButton: {
       disableElevation: true,
     },
@@ -53,7 +50,7 @@ export const lightTheme = createMuiTheme({
   overrides: {
     MuiButton: {
       contained: {
-        textTransform: "none",
+        //textTransform: "none",
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
         //borderRadius: 25,
         borderColor: "#4cba71", //common["black"],
@@ -66,6 +63,10 @@ export const lightTheme = createMuiTheme({
           },
           /* borderColor: "#4cba71", //common["black"],
           border: "5px solid", */
+        },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
         },
       },
       outlined: {
@@ -84,6 +85,10 @@ export const lightTheme = createMuiTheme({
           /* borderColor: "#4cba71", //common["black"],
           border: "5px solid", */
         },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
       },
       text: {
         textTransform: "none",
@@ -99,6 +104,26 @@ export const lightTheme = createMuiTheme({
           },
           /* borderColor: "#4cba71", //common["black"],
           border: "5px solid", */
+        },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+    MuiIconButton: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+    MuiToggleButton: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
         },
       },
     },
@@ -131,7 +156,7 @@ export const lightTheme = createMuiTheme({
     }, */
   },
   typography: {
-    fontFamily: ["Open Sans", "Roboto", "Ubuntu", "Helvetica"].join(","),
+    fontFamily: applicationFonts.join(","),
   },
 });
 
@@ -153,7 +178,7 @@ export const darkTheme = createMuiTheme({
       primary: blue[50],
     },
 
-    //background: { default: grey["A400"], paper: grey[800] },
+    //background: { default: blueGrey["A400"], paper: blueGrey[800] },
     //background: { default: common["black"], paper: blueGrey[900] },
     //background: { default: "#000a12", paper: blueGrey[900] },
     //background: { default: brown[900], paper: brown[800] },
@@ -162,13 +187,9 @@ export const darkTheme = createMuiTheme({
     //background: { default: "#091115", paper: "#102027" },
   },
   shape: {
-    borderRadius: 5,
+    borderRadius: 30,
   },
   props: {
-    MuiIconButton: {
-      disableFocusRipple: false,
-      disableRipple: false,
-    },
     MuiButton: {
       disableElevation: true,
     },
@@ -176,7 +197,7 @@ export const darkTheme = createMuiTheme({
   overrides: {
     MuiButton: {
       contained: {
-        textTransform: "none",
+        //textTransform: "none",
         //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
         //borderRadius: 25,
         borderColor: "#4cba71", //common["black"],
@@ -189,6 +210,10 @@ export const darkTheme = createMuiTheme({
           },
           /* borderColor: "#4cba71", //common["black"],
           border: "5px solid", */
+        },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
         },
       },
       outlined: {
@@ -206,6 +231,10 @@ export const darkTheme = createMuiTheme({
           /* borderColor: "#4cba71", //common["black"],
           border: "5px solid", */
         },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
       },
       text: {
         textTransform: "none",
@@ -221,6 +250,26 @@ export const darkTheme = createMuiTheme({
           },
           /* borderColor: "#4cba71", //common["black"],
           border: "5px solid", */
+        },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+    MuiIconButton: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+    MuiToggleButton: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
         },
       },
     },
@@ -253,12 +302,92 @@ export const darkTheme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: ["Open Sans", "Roboto", "Ubuntu", "Helvetica"].join(","),
+    fontFamily: applicationFonts.join(","),
   },
 });
 
-/* const colours = {
-  primary: [{ light: amber, dark: amber }],"#003366"
-  secondary: [{ light: amber, dark: amber }],
-  background: { default: common["black"], paper: grey[900] },
-}; */
+export const amoledTheme = createMuiTheme({
+  palette: {
+    type: "dark",
+    primary: {
+      main: deepPurple[900],
+    },
+    secondary: {
+      main: teal["A400"],
+    },
+    text: {
+      primary: blue[50],
+    },
+    background: { default: common["black"], paper: common["black"] },
+    //background: { default: "#101010", paper: "#141414" },
+  },
+  shape: {
+    borderRadius: 30,
+  },
+  props: {
+    MuiButton: {
+      disableElevation: true,
+    },
+  },
+  overrides: {
+    MuiButton: {
+      contained: {
+        borderColor: "#4cba71",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+        },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+      outlined: {
+        textTransform: "none",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+          border: "3px solid",
+        },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+      text: {
+        textTransform: "none",
+        borderColor: "#4cba71",
+        "&:hover": {
+          "& $label": {
+            transform: "scale(1.2)",
+          },
+        },
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+    MuiIconButton: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+    MuiToggleButton: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: applicationFonts.join(","),
+  },
+});

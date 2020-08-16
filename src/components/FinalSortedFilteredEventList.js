@@ -5,6 +5,7 @@ import EventItemLoader from "./common/EventItemLoader";
 import _ from "lodash";
 import NoEventsPanel from "./common/NoEventsPanel";
 import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
+import { eventType, eventView } from "../utilities/constants";
 
 export const FinalSortedFilteredEventList = () => {
   const allItems = useSelector((state) => state.eventItems);
@@ -48,23 +49,32 @@ export const FinalSortedFilteredEventList = () => {
     (item) => item.archived === true
   );
 
-  if (view === "Archived" && archivedEventItems.length === 0) {
-    return <NoEventsPanel type="archived" />;
+  if (
+    view === eventView.ARCHIVED_EVENT_VIEW &&
+    archivedEventItems.length === 0
+  ) {
+    return <NoEventsPanel type={eventType.ARCHIVED_EVENT_TYPE} />;
   }
 
   const favouriteEventItems = activeEventItems.filter(
     (item) => item.favourite === true
   );
 
-  if (view === "Favourites" && favouriteEventItems.length === 0) {
-    return <NoEventsPanel type="favourite" />;
+  if (
+    view === eventView.FAVOURITE_EVENT_VIEW &&
+    favouriteEventItems.length === 0
+  ) {
+    return <NoEventsPanel type={eventType.FAVOURITE_EVENT_TYPE} />;
   }
 
   const completedEventItems = activeEventItems.filter(
-    (item) => item.completedEvent === true
+    (item) => item.archived !== true && item.completedEvent === true
   );
-  if (view === "Completed" && completedEventItems.length === 0) {
-    return <NoEventsPanel type="completed" />;
+  if (
+    view === eventView.COMPLETED_EVENT_VIEW &&
+    completedEventItems.length === 0
+  ) {
+    return <NoEventsPanel type={eventType.COMPLETED_EVENT_TYPE} />;
   }
 
   const defaultEventItems = [
@@ -73,23 +83,35 @@ export const FinalSortedFilteredEventList = () => {
   ];
 
   if (
-    view !== ("Archived" || "Completed" || "Favourites") &&
+    view !==
+      (eventView.ARCHIVED_EVENT_VIEW ||
+        eventView.COMPLETED_EVENT_VIEW ||
+        eventView.FAVOURITE_EVENT_VIEW) &&
     defaultEventItems.length === 0
   ) {
     return <NoEventsPanel type="saved" />;
   }
 
-  if (view === "Archived") {
+  if (view === eventView.ARCHIVED_EVENT_VIEW) {
     return (
-      <BaseEventList key="archivedList" eventsToShow={archivedEventItems} />
+      <BaseEventList
+        key={eventView.ARCHIVED_EVENT_VIEW}
+        eventsToShow={archivedEventItems}
+      />
     );
-  } else if (view === "Favourites") {
+  } else if (view === eventView.FAVOURITE_EVENT_VIEW) {
     return (
-      <BaseEventList key="favouriteList" eventsToShow={favouriteEventItems} />
+      <BaseEventList
+        key={eventView.FAVOURITE_EVENT_VIEW}
+        eventsToShow={favouriteEventItems}
+      />
     );
-  } else if (view === "Completed") {
+  } else if (view === eventView.COMPLETED_EVENT_VIEW) {
     return (
-      <BaseEventList key="completedList" eventsToShow={completedEventItems} />
+      <BaseEventList
+        key={eventView.COMPLETED_EVENT_VIEW}
+        eventsToShow={completedEventItems}
+      />
     );
   } else {
     return <BaseEventList key="defaultList" eventsToShow={defaultEventItems} />;

@@ -146,7 +146,7 @@ export const EventForm = (props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
-        spacing={1}
+        spacing={2}
         container
         direction="row"
         justify="space-between"
@@ -157,7 +157,7 @@ export const EventForm = (props) => {
             as={TextField}
             fullWidth
             color="secondary"
-            variant="filled"
+            variant="outlined"
             label={
               errors.title && errors.title.type === "required"
                 ? "Give a title to this Event"
@@ -189,7 +189,7 @@ export const EventForm = (props) => {
               rules={{ required: true }}
               error={errors.startDate ? true : false}
               size="small"
-              inputVariant="filled"
+              inputVariant="outlined"
               variant="inline"
               format="dd/MM/yyyy"
               color="secondary"
@@ -210,7 +210,7 @@ export const EventForm = (props) => {
             margin="none"
             fullWidth
             //multiline
-            variant="filled"
+            variant="outlined"
             name="description"
             id="description"
             placeholder="The details"
@@ -273,7 +273,7 @@ export const EventForm = (props) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    variant="filled"
+                    variant="outlined"
                     label="Tags"
                     color="secondary"
                     size="small"
@@ -305,7 +305,7 @@ export const EventForm = (props) => {
               control={control}
               autoOk
               size="small"
-              inputVariant="filled"
+              inputVariant="outlined"
               rules={{
                 required: true,
                 validate: validateEndDate,
@@ -369,7 +369,7 @@ export const EventForm = (props) => {
             </FormGroup>
           </FormControl>
         </Grid>
-        <Grid item xs="auto">
+        <Grid item xs={6}>
           <FormControl margin="dense" component="fieldset">
             <FormControlLabel
               control={
@@ -386,7 +386,7 @@ export const EventForm = (props) => {
             />
           </FormControl>
         </Grid>
-        <Grid item xs="auto">
+        <Grid item xs={6}>
           <FormControl margin="dense" component="fieldset">
             <FormControlLabel
               control={

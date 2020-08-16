@@ -1,17 +1,36 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import * as appActions from "../redux/actions/appSettingsActions";
 import Grid from "@material-ui/core/Grid";
+import Tooltip from "@material-ui/core/Tooltip";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import ArchiveIcon from "@material-ui/icons/ArchiveTwoTone";
-import FavouriteIcon from "@material-ui/icons/FavoriteTwoTone";
-import DoneAllIcon from "@material-ui/icons/DoneAllTwoTone";
+import ArchiveIcon from "@material-ui/icons/ArchiveRounded";
+import FavouriteIcon from "@material-ui/icons/FavoriteRounded";
+import DoneAllIcon from "@material-ui/icons/DoneRounded";
 import ClearIcon from "@material-ui/icons/Clear";
 import { green, pink, blueGrey } from "@material-ui/core/colors";
-import { Typography } from "@material-ui/core";
+import { Typography, Paper } from "@material-ui/core";
+import { eventView } from "../utilities/constants";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+
+const useStyles = makeStyles((theme) => ({
+  view: {
+    display: "flex",
+    padding: theme.spacing(2),
+    //backgroundColor: theme.palette.background.default,
+    //borderRadius: 25,
+    /* position: "sticky",
+    top: 70,
+    zIndex: 5, */
+  },
+}));
 
 export const EventViewOptions = () => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch = useDispatch();
   const [eventStateView, setEventStateView] = useState("");
   const handleEventStateView = (event, newEventStateView) => {
@@ -20,71 +39,76 @@ export const EventViewOptions = () => {
   };
 
   return (
-    <>
-      <Grid container direction="column" justify="center" alignItems="center">
-        <Grid item xs="auto">
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Grid item xs="auto">
+        <Paper
+          component="div"
+          className={classes.view}
+          elevation={eventStateView && !isSmallScreen ? 10 : 0}
+        >
           <ToggleButtonGroup
             value={eventStateView}
             exclusive
-            orientation="horizontal"
+            orientation={isSmallScreen ? "vertical" : "horizontal"}
             size="large"
             onChange={handleEventStateView}
             aria-label="text alignment"
           >
             <ToggleButton
               style={{ color: blueGrey["A400"] }}
-              value="Archived"
+              value={eventView.ARCHIVED_EVENT_VIEW}
               aria-label="archived"
             >
               {" "}
-              {eventStateView === "Archived" ? (
+              {eventStateView === eventView.ARCHIVED_EVENT_VIEW ? (
                 <>
-                  <Typography variant="button">Archived </Typography>
-                  <ClearIcon />
+                  <Typography variant="h6">Archived </Typography>
+                  <ClearIcon fontSize="large" />
                 </>
               ) : (
-                <ArchiveIcon
-                //fontSize={eventStateView === "Archived" ? "large" : "default"}
-                />
+                <Tooltip title={"See Archived Events"} arrow>
+                  <ArchiveIcon fontSize="large" />
+                </Tooltip>
               )}
             </ToggleButton>
+
             <ToggleButton
               style={{ color: pink["A400"] }}
-              value="Favourites"
+              value={eventView.FAVOURITE_EVENT_VIEW}
               aria-label="favourites"
             >
-              {eventStateView === "Favourites" ? (
+              {eventStateView === eventView.FAVOURITE_EVENT_VIEW ? (
                 <>
-                  <Typography variant="button">Favourites </Typography>
-                  <ClearIcon />
+                  <Typography variant="h6">Favourites </Typography>
+                  <ClearIcon fontSize="large" />
                 </>
               ) : (
-                <FavouriteIcon
-                //fontSize={eventStateView === "Favourites" ? "large" : "default"}
-                />
+                <Tooltip title={"See Favourite Events"} arrow>
+                  <FavouriteIcon fontSize="large" />
+                </Tooltip>
               )}
             </ToggleButton>
             <ToggleButton
               style={{ color: green["A700"] }}
-              value="Completed"
+              value={eventView.COMPLETED_EVENT_VIEW}
               aria-label="completed"
             >
-              {eventStateView === "Completed" ? (
+              {eventStateView === eventView.COMPLETED_EVENT_VIEW ? (
                 <>
-                  <Typography variant="button">Completed </Typography>
-                  <ClearIcon />
+                  <Typography variant="h6">Completed </Typography>
+                  <ClearIcon fontSize="large" />
                 </>
               ) : (
                 <>
-                  <DoneAllIcon
-                  //fontSize={eventStateView === "Completed" ? "large" : "default"}
-                  />
+                  <Tooltip title={"See Completed Events"} arrow>
+                    <DoneAllIcon fontSize="large" />
+                  </Tooltip>
                 </>
               )}
             </ToggleButton>
           </ToggleButtonGroup>
-        </Grid>
+        </Paper>
       </Grid>
-    </>
+    </Grid>
   );
 };

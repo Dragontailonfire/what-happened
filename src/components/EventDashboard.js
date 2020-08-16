@@ -11,10 +11,11 @@ import SiteFooter from "./SiteFooter";
 import Grid from "@material-ui/core/Grid";
 import { EventSortFilterPanel } from "./EventSortFilterPanel";
 import QuickActions from "./common/QuickActions";
-import { IconButton, Paper } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { EventViewOptions } from "./EventViewOptions";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import Sticky from "react-stickynode";
+import BottomActionBar from "./common/BottomActionBar";
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   view: {
     display: "flex",
-    padding: theme.spacing(0.5),
+    padding: theme.spacing(2),
     //borderRadius: 25,
     /* position: "sticky",
     top: 70,
@@ -56,7 +57,7 @@ export default function EventDashboard() {
   };
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme>
       <SnackbarProvider
         ref={notistackRef}
         maxSnack={1}
@@ -72,7 +73,7 @@ export default function EventDashboard() {
         <div id="back-to-top-anchor" className={classes.offset} />
         <Container maxWidth="lg">
           <Grid
-            spacing={10}
+            spacing={5}
             container
             direction="row"
             justify="center"
@@ -88,11 +89,10 @@ export default function EventDashboard() {
             </Grid>
             <Grid className={classes.manageEvents} item md={4}>
               <Sticky enabled={true} top={120} bottomBoundary="#bottom-anchor">
-                <Paper component="div" className={classes.view} elevation={0}>
-                  <EventViewOptions />
-                </Paper>
-                <br /> <br />
                 <EventModificationPanel />
+                <br />
+                <br />
+                <EventViewOptions />
               </Sticky>
             </Grid>
 
@@ -102,6 +102,8 @@ export default function EventDashboard() {
           </Grid>
         </Container>
         <SiteFooter />
+        <div className={classes.offset} />
+        <BottomActionBar />
       </SnackbarProvider>
     </ThemeProvider>
   );

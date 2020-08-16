@@ -1,6 +1,7 @@
 import * as types from "../actions/actionTypes";
+import { appSettings } from "../../utilities/defaults";
 
-export default function appSettingsReducer(state = defaultAppSettings, action) {
+export default function appSettingsReducer(state = appSettings, action) {
   switch (action.type) {
     case types.TOGGLE_APP_THEME:
       return { ...state, ...action.appSettings };
@@ -14,10 +15,3 @@ export default function appSettingsReducer(state = defaultAppSettings, action) {
       return state;
   }
 }
-
-const defaultAppSettings = {
-  isDark: true,
-  eventView: "",
-  eventEditMode: false,
-  filters: [],
-};

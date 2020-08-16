@@ -6,6 +6,7 @@ import {
   Container,
   makeStyles,
   Button,
+  Typography,
 } from "@material-ui/core";
 import NavBar from "../Navbar";
 import SiteFooter from "../SiteFooter";
@@ -17,18 +18,22 @@ const useStyles = makeStyles((theme) => ({
 export default function PageNotFound() {
   const classes = useStyles();
   return (
-    <ThemeProvider>
+    <ThemeProvider theme>
       <CssBaseline />
       <NavBar />
       <div className={classes.offset} />
       <Container maxWidth="lg">
-        <h1>Nothing to see here!</h1>
-        <p>How did you end up here?</p>
-        <Link to="/" className="btn">
-          <Button color="primary" variant="contained" size="large">
-            Go home
-          </Button>
-        </Link>
+        <Typography variant="h1">Nothing to see here folks!</Typography>
+        <Typography variant="h6" gutterBottom>
+          How did you end up here?
+        </Typography>
+        <Typography variant="button">
+          <Link to="/" className="btn">
+            <Button color="primary" variant="contained" size="large">
+              Go home
+            </Button>
+          </Link>
+        </Typography>
       </Container>
       <SiteFooter />
     </ThemeProvider>

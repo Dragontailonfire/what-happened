@@ -1,11 +1,11 @@
 import React from "react";
 //import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
-import NotificationsActiveIcon from "@material-ui/icons/NotificationsActiveTwoTone";
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActiveRounded";
 import IconButton from "@material-ui/core/IconButton";
 import NotificationEventItem from "../NotificationEventItem";
 //import NotificationEventItemLoader from "./NotificationEventItemLoader";
-import { Badge } from "@material-ui/core";
+import { Badge, useTheme, useMediaQuery } from "@material-ui/core";
 import { StyleSheet, css } from "aphrodite";
 import shake from "react-animations/lib/headShake";
 import isThisMonth from "date-fns/isThisMonth";
@@ -28,7 +28,7 @@ import isFuture from "date-fns/isFuture";
 
 const styles = StyleSheet.create({
   iconEffect: {
-    marginRight: 20,
+    //marginRight: 10,
     ":hover": {
       animationName: shake,
       animationDuration: "0.7s",
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
 
 export default function NotificationPopup() {
   //const classes = useStyles();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -53,29 +55,20 @@ export default function NotificationPopup() {
   const id = open ? "simple-popover" : undefined;
 
   const convertToThisYearDate = (actualDate) => {
-    console.log("Actual date");
-    console.log(actualDate);
     let day = getDate(new Date(actualDate));
     let month = getMonth(new Date(actualDate));
     let year = getYear(new Date());
     let newDate = toDate(
       new Date(parseInt(year), parseInt(month), parseInt(day))
     );
-    console.log("New date");
-    console.log(newDate);
     return newDate;
   };
 
   const allItems = useSelector((state) => state.eventItems);
-  console.log("All items");
-  console.log(allItems);
 
   const activeAnnualItems = allItems.filter(
     (item) => !item.archived && item.setReminder
   );
-
-  console.log("Active  annual items");
-  console.log(activeAnnualItems);
 
   const sortedItems = _.sortBy(activeAnnualItems, [
     function (a) {
@@ -87,9 +80,6 @@ export default function NotificationPopup() {
     "title",
   ]);
 
-  console.log("Sorted Active  annual items");
-  console.log(sortedItems);
-
   const thisMonthItems = [
     ...sortedItems.filter(
       (item) =>
@@ -97,9 +87,6 @@ export default function NotificationPopup() {
         isFuture(convertToThisYearDate(item.startDate))
     ),
   ];
-
-  console.log("This month Sorted Active  annual items");
-  console.log(sortedItems);
 
   var nextMonthDate = addMonths(new Date(), 1);
 
@@ -141,7 +128,7 @@ export default function NotificationPopup() {
         aria-describedby={id}
         variant="contained"
         color="inherit"
-        size="small"
+        //size="small"
         onClick={handleClick}
       >
         <Badge
@@ -152,7 +139,9 @@ export default function NotificationPopup() {
             horizontal: "right",
           }}
         >
-          <NotificationsActiveIcon />
+          <NotificationsActiveIcon
+            fontSize={isSmallScreen ? "small" : "default"}
+          />
         </Badge>
       </IconButton>
       <Popover
