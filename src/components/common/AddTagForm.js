@@ -102,7 +102,7 @@ export default function AddTagForm() {
             label={
               errors.tagName && errors.tagName.type === "validate"
                 ? "You already have this Tag"
-                : "Add a tag"
+                : "ADD A TAG"
             }
             helperText={
               errors.tagName &&

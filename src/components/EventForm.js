@@ -157,11 +157,11 @@ export const EventForm = (props) => {
             as={TextField}
             fullWidth
             color="secondary"
-            variant="outlined"
+            variant="standard"
             label={
               errors.title && errors.title.type === "required"
                 ? "Give a title to this Event"
-                : "Title"
+                : "TITLE"
             }
             name="title"
             margin="none"
@@ -189,12 +189,12 @@ export const EventForm = (props) => {
               rules={{ required: true }}
               error={errors.startDate ? true : false}
               size="small"
-              inputVariant="outlined"
+              inputVariant="standard"
               variant="inline"
               format="dd/MM/yyyy"
               color="secondary"
               id="startDate"
-              label="Start date"
+              label="START DATE"
               KeyboardButtonProps={{
                 "aria-label": "change start date",
               }}
@@ -210,11 +210,11 @@ export const EventForm = (props) => {
             margin="none"
             fullWidth
             //multiline
-            variant="outlined"
+            variant="standard"
             name="description"
             id="description"
             placeholder="The details"
-            label="Description"
+            label="DESCRIPTION"
           />
         </Grid>
         <Grid item xs={12}>
@@ -273,8 +273,8 @@ export const EventForm = (props) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    variant="outlined"
-                    label="Tags"
+                    variant="standard"
+                    label="TAGS"
                     color="secondary"
                     size="small"
                     placeholder="Assign tags"
@@ -305,7 +305,7 @@ export const EventForm = (props) => {
               control={control}
               autoOk
               size="small"
-              inputVariant="outlined"
+              inputVariant="standard"
               rules={{
                 required: true,
                 validate: validateEndDate,
@@ -316,58 +316,12 @@ export const EventForm = (props) => {
               format="dd/MM/yyyy"
               color="secondary"
               id="endDate"
-              label="End date"
+              label="END DATE"
               KeyboardButtonProps={{
                 "aria-label": "change end date",
               }}
             />
           </MuiPickersUtilsProvider>
-        </Grid>
-        <Grid hidden item xs={12}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Counter format</FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
-                    name="checkedDays"
-                    id="checkedDays"
-                    color="primary"
-                  />
-                }
-                label="Days"
-              />
-              <FormControlLabel
-                control={
-                  <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
-                    name="checkedMonths"
-                    id="checkedMonths"
-                    color="primary"
-                  />
-                }
-                label="Months"
-              />
-              <FormControlLabel
-                control={
-                  <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
-                    name="checkedYears"
-                    id="checkedYears"
-                    color="primary"
-                  />
-                }
-                label="Years"
-              />
-            </FormGroup>
-          </FormControl>
         </Grid>
         <Grid item xs={6}>
           <FormControl margin="dense" component="fieldset">
@@ -382,7 +336,8 @@ export const EventForm = (props) => {
                   color="secondary"
                 />
               }
-              label="Completed Event"
+              //labelPlacement="bottom"
+              label="EVENT ENDED"
             />
           </FormControl>
         </Grid>
@@ -399,12 +354,13 @@ export const EventForm = (props) => {
                   color="secondary"
                 />
               }
-              label="Set Reminder"
+              label="SET REMINDER"
+              //labelPlacement="bottom"
             />
           </FormControl>
         </Grid>
 
-        <Grid item xs="auto">
+        <Grid item xs={6}>
           {props.edit ? (
             <Button
               variant="contained"

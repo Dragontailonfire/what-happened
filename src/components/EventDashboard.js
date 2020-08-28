@@ -20,7 +20,7 @@ import BottomActionBar from "./common/BottomActionBar";
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
   manageEvents: {
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       //visibility: "hidden",
       display: "none",
     },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     top: 70, */
   },
   filterPanel: {
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       //visibility: "hidden",
       display: "none",
     },
@@ -73,37 +73,41 @@ export default function EventDashboard() {
         <div id="back-to-top-anchor" className={classes.offset} />
         <Container maxWidth="lg">
           <Grid
-            spacing={5}
+            spacing={0}
             container
             direction="row"
-            justify="center"
-            alignItems="flex-start"
+            justify="space-around"
+            alignItems="stretch"
           >
-            <Grid item className={classes.filterPanel} md={3}>
-              <Sticky enabled={true} top={120} bottomBoundary="#bottom-anchor">
+            <Grid item className={classes.filterPanel} md={2} xl={2} lg={2}>
+              <Sticky enabled={false} top={120} bottomBoundary="#bottom-anchor">
                 <EventSortFilterPanel />
               </Sticky>
             </Grid>
-            <Grid className={classes.mainEventList} item lg={5} xs={11}>
+            <Grid
+              className={classes.mainEventList}
+              item
+              xl={5}
+              lg={4}
+              md={4}
+              sm={10}
+              xs={12}
+            >
               <FinalSortedFilteredEventList />
             </Grid>
-            <Grid className={classes.manageEvents} item md={4}>
+            <Grid className={classes.manageEvents} item md={4} xl={4} lg={4}>
               <Sticky enabled={true} top={120} bottomBoundary="#bottom-anchor">
-                <EventModificationPanel />
-                <br />
-                <br />
                 <EventViewOptions />
+                <br />
+                <EventModificationPanel />
               </Sticky>
-            </Grid>
-
-            <Grid item>
-              <QuickActions />
             </Grid>
           </Grid>
         </Container>
-        <SiteFooter />
+        <QuickActions />
         <div className={classes.offset} />
         <BottomActionBar />
+        <SiteFooter />
       </SnackbarProvider>
     </ThemeProvider>
   );

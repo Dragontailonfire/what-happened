@@ -18,7 +18,8 @@ import ArchiveIcon from "@material-ui/icons/ArchiveRounded";
 import UnarchiveSharpIcon from "@material-ui/icons/UnarchiveRounded";
 import DeleteIcon from "@material-ui/icons/DeleteForeverRounded";
 import EditIcon from "@material-ui/icons/EditRounded";
-import FavouriteIcon from "@material-ui/icons/FavoriteRounded";
+import SelectedFavouriteIcon from "@material-ui/icons/FavoriteRounded";
+import FavouriteIcon from "@material-ui/icons/FavoriteBorderRounded";
 import DoneIcon from "@material-ui/icons/DoneRounded";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     //padding: -30,
   },
   editMode: {
-    transform: "scale(1.07)",
+    //transform: "scale(1.01)",
   },
   primaryBackground: {
     padding: theme.spacing(2.5),
@@ -247,7 +248,7 @@ export const EventItemCard = (props) => {
         <CardHeader
           style={{
             backgroundColor: amoledOn ? common["black"] : props.cardColor,
-            color: amoledOn ? common["white"] : common["black"],
+            color: amoledOn ? common["white"] : common["white"],
           }}
           className={classes.primaryBackground}
           title={
@@ -273,7 +274,7 @@ export const EventItemCard = (props) => {
                 onClick={handleFavouriteClick}
               >
                 {props.favourite ? (
-                  <FavouriteIcon
+                  <SelectedFavouriteIcon
                     fontSize="large"
                     htmlColor={pink["A400"]}
                     className={css(styles.iconEffect)}
@@ -282,7 +283,7 @@ export const EventItemCard = (props) => {
                   <FavouriteIcon
                     className={css(styles.iconEffect)}
                     fontSize="small"
-                    color="inherit"
+                    color="secondary"
                   />
                 )}
               </IconButton>
@@ -471,7 +472,7 @@ export const EventItemCard = (props) => {
             //color=""
             style={{
               backgroundColor: props.cardColor,
-              color: common["black"],
+              color: common["white"],
             }}
             variant="contained"
             size="small"

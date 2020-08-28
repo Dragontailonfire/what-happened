@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { Button } from "@material-ui/core";
 import AddEventDialog from "./AddEventDialog";
 import ManageFilterDialog from "./ManageFilterDialog";
@@ -13,7 +10,7 @@ import ChangeViewDialog from "./ChangeViewDialog";
 const useStyles = makeStyles((theme) => ({
   root: {
     //width: 500,
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("md")]: {
       display: "none",
     },
     width: "100%",
@@ -52,6 +49,7 @@ export default function BottomActionBar() {
       >
         <Button
           variant="text"
+          size="small"
           onClick={() => {
             setOpenAddEventDialog(true);
           }}
@@ -60,6 +58,7 @@ export default function BottomActionBar() {
         </Button>
         <Button
           variant="text"
+          size="small"
           onClick={() => {
             setOpenChangeViewDialog(true);
           }}
@@ -68,6 +67,7 @@ export default function BottomActionBar() {
         </Button>
         <Button
           variant="text"
+          size="small"
           onClick={() => {
             setOpenFilterEventDialog(true);
           }}

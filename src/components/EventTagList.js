@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    padding: theme.spacing(2),
+    //display: "flex",
+    //padding: theme.spacing(0),
     //backgroundColor: theme.palette.background.default,
-    //borderRadius: 25,
+    //borderRadius: 5,
     /* display: "flex",
     flexDirection: "column",
     textAlign: "center",
@@ -129,9 +129,9 @@ export default function EventTagList() {
               CLEAR TAGS
             </Button>
           ) : eventTagOptions.length > 0 ? (
-            <Typography variant="h6">Filter by tags</Typography>
+            <Typography variant="h6">FILTER BY TAGS</Typography>
           ) : (
-            <Typography variant="h6">Tags</Typography>
+            <Typography variant="h6">TAGS</Typography>
           )}
 
           <ListItemSecondaryAction>

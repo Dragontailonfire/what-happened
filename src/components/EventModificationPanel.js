@@ -4,7 +4,7 @@ import { createSelector } from "reselect";
 import { makeStyles } from "@material-ui/core/styles";
 import { EventForm } from "./EventForm";
 import Paper from "@material-ui/core/Paper";
-import { Button, Collapse, Grow, Zoom } from "@material-ui/core";
+import { Button, Collapse, Grow, Zoom, Grid } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/AddCircle";
 
 const eventItemToEdit = createSelector(
@@ -25,7 +25,8 @@ export const EventModificationPanel = () => {
   };
   const useStyles = makeStyles((theme) => ({
     root: {
-      padding: theme.spacing(2),
+      //display: "flex",
+      padding: theme.spacing(1),
       //backgroundColor: theme.palette.background.default,
       //borderRadius: 25,
     },
@@ -58,7 +59,7 @@ export const EventModificationPanel = () => {
             }
           }
         >
-          New Event
+          NEW EVENT
         </Button>
       </div>
     );
@@ -66,18 +67,22 @@ export const EventModificationPanel = () => {
 
   return (
     <>
-      <Paper
-        component="div"
-        className={classes.root}
-        elevation={displayForm ? 10 : 0}
-      >
-        <Grow in={!displayForm}>
-          <AddEventButton />
-        </Grow>
-        <Grow in={displayForm}>
-          <EventFormPanel />
-        </Grow>
-      </Paper>
+      <Grid container direction="column" justify="center" alignItems="">
+        <Grid item>
+          <Paper
+            component="div"
+            className={classes.root}
+            elevation={displayForm ? 10 : 0}
+          >
+            <Grow in={!displayForm}>
+              <AddEventButton />
+            </Grow>
+            <Grow in={displayForm}>
+              <EventFormPanel />
+            </Grow>
+          </Paper>
+        </Grid>
+      </Grid>
     </>
   );
 };

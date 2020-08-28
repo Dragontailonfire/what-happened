@@ -47,14 +47,14 @@ export default function AddEventDialog(props) {
             alignItems="stretch"
           >
             <Grid item xs={12}>
-              <Typography variant="h6">Login</Typography>
+              <Typography variant="h6">LOGIN</Typography>
             </Grid>
             <Grid item xs={12}>
               <Controller
                 as={TextField}
                 color="secondary"
-                variant="outlined"
-                label="Username"
+                variant="standard"
+                label="USERNAME"
                 name="username"
                 margin="none"
                 id="username"
@@ -78,10 +78,10 @@ export default function AddEventDialog(props) {
                 InputProps={{
                   type: "password",
                 }}
-                variant="outlined"
+                variant="standard"
                 name="password"
                 id="password"
-                label="Password"
+                label="PASSWORD"
                 error={errors.password ? true : false}
                 helperText={
                   errors.password && "Enter the password and try again"

@@ -6,6 +6,8 @@ import { ThemeProvider } from "@material-ui/styles";
 import { lightTheme, darkTheme, amoledTheme } from "./utilities/theme";
 import PageNotFound from "./components/pages/PageNotFound";
 import AboutPage from "./components/pages/AboutPage";
+import LoginPage from "./components/pages/LoginPage";
+import { CssBaseline } from "@material-ui/core";
 
 function App() {
   const settings = useSelector((state) => state.appSettings);
@@ -16,8 +18,10 @@ function App() {
     <ThemeProvider
       theme={amoled ? amoledTheme : darkness ? darkTheme : lightTheme}
     >
+      <CssBaseline />
       <Switch>
         <Route exact path="/" component={EventDashboard} />
+        <Route path="/login" component={LoginPage} />
         <Route path="/about" component={AboutPage} />
         <Route component={PageNotFound} />
       </Switch>

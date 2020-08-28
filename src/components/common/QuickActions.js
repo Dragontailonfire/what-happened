@@ -8,6 +8,8 @@ import AddIcon from "@material-ui/icons/AddTwoTone";
 import AddEventDialog from "./AddEventDialog";
 import FilterListIcon from "@material-ui/icons/FilterListRounded";
 import ManageFilterDialog from "./ManageFilterDialog";
+import fadeOutUp from "react-animations/lib/fadeOutUp";
+import { StyleSheet, css } from "aphrodite";
 
 const useStyles = makeStyles((theme) => ({
   scrollButton: {
@@ -32,6 +34,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+const styles = StyleSheet.create({
+  iconEffectScrollUp: {
+    ":hover": {
+      animationName: fadeOutUp,
+      animationDuration: "0.7s",
+    },
+  },
+});
 
 export default function QuickActions(props) {
   const classes = useStyles();
@@ -80,7 +91,7 @@ export default function QuickActions(props) {
             aria-label="scroll back to top"
             elevation={15}
           >
-            <KeyboardArrowUpIcon />
+            <KeyboardArrowUpIcon className={css(styles.iconEffectScrollUp)} />
           </Fab>
         </ScrollTop>
       </div>

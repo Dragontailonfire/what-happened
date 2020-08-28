@@ -18,7 +18,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 const useStyles = makeStyles((theme) => ({
   view: {
     display: "flex",
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     //backgroundColor: theme.palette.background.default,
     //borderRadius: 25,
     /* position: "sticky",
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export const EventViewOptions = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
   const [eventStateView, setEventStateView] = useState("");
   const handleEventStateView = (event, newEventStateView) => {
@@ -40,7 +40,7 @@ export const EventViewOptions = () => {
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item xs="auto">
+      <Grid item>
         <Paper
           component="div"
           className={classes.view}
@@ -54,24 +54,6 @@ export const EventViewOptions = () => {
             onChange={handleEventStateView}
             aria-label="text alignment"
           >
-            <ToggleButton
-              style={{ color: blueGrey["A400"] }}
-              value={eventView.ARCHIVED_EVENT_VIEW}
-              aria-label="archived"
-            >
-              {" "}
-              {eventStateView === eventView.ARCHIVED_EVENT_VIEW ? (
-                <>
-                  <Typography variant="h6">Archived </Typography>
-                  <ClearIcon fontSize="large" />
-                </>
-              ) : (
-                <Tooltip title={"See Archived Events"} arrow>
-                  <ArchiveIcon fontSize="large" />
-                </Tooltip>
-              )}
-            </ToggleButton>
-
             <ToggleButton
               style={{ color: pink["A400"] }}
               value={eventView.FAVOURITE_EVENT_VIEW}
@@ -104,6 +86,23 @@ export const EventViewOptions = () => {
                     <DoneAllIcon fontSize="large" />
                   </Tooltip>
                 </>
+              )}
+            </ToggleButton>
+            <ToggleButton
+              style={{ color: blueGrey["A400"] }}
+              value={eventView.ARCHIVED_EVENT_VIEW}
+              aria-label="archived"
+            >
+              {" "}
+              {eventStateView === eventView.ARCHIVED_EVENT_VIEW ? (
+                <>
+                  <Typography variant="h6">Archived </Typography>
+                  <ClearIcon fontSize="large" />
+                </>
+              ) : (
+                <Tooltip title={"See Archived Events"} arrow>
+                  <ArchiveIcon fontSize="large" />
+                </Tooltip>
               )}
             </ToggleButton>
           </ToggleButtonGroup>

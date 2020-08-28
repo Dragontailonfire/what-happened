@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     //minHeight: "70vh",
     minHeight: "calc(100vh - 330px)",
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: theme.spacing(6),
+    },
   },
   footer: {
     display: "flex",
@@ -51,7 +54,7 @@ export default function SiteFooter() {
           <Grid
             container
             direction="row"
-            justify="space-around"
+            justify="space-beween"
             alignItems="center"
           >
             <Grid item>
@@ -78,9 +81,7 @@ export default function SiteFooter() {
                   dispatch(appActions.toggleAppTheme(newTheme));
                 }}
               >
-                {currentTheme
-                  ? "Take me to the light"
-                  : "Embrace the darkness"}
+                {currentTheme ? "Take me to the light" : "Embrace the darkness"}
               </ToggleButton>
             </Grid>
           </Grid>

@@ -70,7 +70,7 @@ export const cardColors = [
   amber["A100"],
   orange["A100"],
   deepOrange["A100"], */
-  red["A200"],
+  /* red["A200"],
   pink["A200"],
   purple["A200"],
   deepPurple["A200"],
@@ -85,7 +85,7 @@ export const cardColors = [
   yellow["A200"],
   amber["A200"],
   orange["A200"],
-  deepOrange["A200"],
+  deepOrange["A200"], */
   /* red["A700"],
   pink["A700"],
   purple["A700"],
@@ -102,7 +102,7 @@ export const cardColors = [
   amber["A700"],
   orange["A700"],
   deepOrange["A700"], */
-  /* red[900],
+  red[900],
   pink[900],
   purple[900],
   deepPurple[900],
@@ -117,7 +117,7 @@ export const cardColors = [
   yellow[900],
   amber[900],
   orange[900],
-  deepOrange[900], */
+  deepOrange[900],
 ];
 
 export const tagColors = [

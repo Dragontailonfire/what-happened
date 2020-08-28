@@ -8,7 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppThemeToggler from "./common/appThemeToggler";
 import IconButton from "@material-ui/core/IconButton";
-import MainLogo from "@material-ui/icons/ToysRounded";
+import MainLogo from "@material-ui/icons/EventNoteTwoTone";
 import { Slide, Button, Container } from "@material-ui/core";
 import NotificationPopup from "./common/NotificationPopup";
 import LoginDialog from "./common/LoginDialog";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("lg"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("xs"));
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -48,11 +48,11 @@ export default function NavBar(props) {
             <Toolbar variant="regular">
               <Link to="/">
                 <IconButton color="primary">
-                  <MainLogo fontSize={isSmallScreen ? "small" : "large"} />
+                  <MainLogo fontSize={isSmallScreen ? "small" : "default"} />
                 </IconButton>
               </Link>
               <Typography variant="h6">
-                {isSmallScreen ? "W H?" : "What Happened?"}
+                {isSmallScreen ? "W H?" : "WHAT HAPPENED?"}
               </Typography>
               <Typography className={classes.navBarButton}>
                 <NotificationPopup />

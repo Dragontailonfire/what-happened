@@ -27,7 +27,7 @@ export default function NotificationEventItem({
   return (
     <>
       <List className={classes.root} component="ul">
-        <ListSubheader>This month upcoming</ListSubheader>
+        <ListSubheader>THIS MONTH UPCOMING</ListSubheader>
         {thisMonthEvents.length < 1 && (
           <>
             <ListItemText inset primary="No events" />
@@ -50,7 +50,7 @@ export default function NotificationEventItem({
           </ListItem>
         ))}
         <ListItem divider />
-        <ListSubheader>Next month upcoming</ListSubheader>
+        <ListSubheader>NEXT MONTH UPCOMING</ListSubheader>
         {nextMonthEvents.length < 1 && (
           <ListItemText inset primary="No events" />
         )}

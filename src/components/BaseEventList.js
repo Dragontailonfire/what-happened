@@ -59,7 +59,6 @@ export const BaseEventList = ({ eventsToShow }) => {
                 completedEvent={e.completedEvent}
               />
               <br />
-              <br />
             </div>
           );
         };

@@ -127,6 +127,14 @@ export const lightTheme = createMuiTheme({
         },
       },
     },
+    MuiFab: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
     MuiCard: {
       //root: { borderRadius: 0 },
     },
@@ -187,7 +195,7 @@ export const darkTheme = createMuiTheme({
     //background: { default: "#091115", paper: "#102027" },
   },
   shape: {
-    borderRadius: 30,
+    borderRadius: 20,
   },
   props: {
     MuiButton: {
@@ -273,6 +281,14 @@ export const darkTheme = createMuiTheme({
         },
       },
     },
+    MuiFab: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
     MuiCard: {
       //root: { borderRadius: 0 },
     },
@@ -293,7 +309,7 @@ export const darkTheme = createMuiTheme({
           borderLeftWidth: 10,
           padding: "4px !important", // override inline-style
         }, */
-        //borderRadius: 5,
+        borderRadius: 0,
         //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
         //background: blueGrey[900],
         //borderColor: blueGrey[900],
@@ -379,6 +395,14 @@ export const amoledTheme = createMuiTheme({
       },
     },
     MuiToggleButton: {
+      root: {
+        outline: "none",
+        "&:focus": {
+          outline: "none",
+        },
+      },
+    },
+    MuiFab: {
       root: {
         outline: "none",
         "&:focus": {
