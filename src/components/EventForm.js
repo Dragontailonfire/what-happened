@@ -2,41 +2,36 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { useForm, Controller } from "react-hook-form";
-import DateFnsUtils from "@date-io/date-fns";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import * as TextUtils from "../utilities/TextUtils";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import Autocomplete, {
-  createFilterOptions,
-} from "@material-ui/lab/Autocomplete";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import * as eventActions from "../redux/actions/eventItemActions";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import CancelIcon from "@material-ui/icons/CancelTwoTone";
-import Grid from "@material-ui/core/Grid";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControl from "@material-ui/core/FormControl";
-import SaveIcon from "@material-ui/icons/SaveTwoTone";
-import UpdateIcon from "@material-ui/icons/UpdateTwoTone";
-import ClearIcon from "@material-ui/icons/ClearRounded";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import CancelIcon from "@mui/icons-material/CancelTwoTone";
+import Grid from "@mui/material/Grid";
+import FormGroup from "@mui/material/FormGroup";
+import FormLabel from "@mui/material/FormLabel";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import SaveIcon from "@mui/icons-material/SaveTwoTone";
+import UpdateIcon from "@mui/icons-material/UpdateTwoTone";
+import ClearIcon from "@mui/icons-material/ClearRounded";
 import isAfter from "date-fns/isBefore";
-import Switch from "@material-ui/core/Switch";
+import Switch from "@mui/material/Switch";
 
 export const EventForm = (props) => {
   const {
     watch,
     handleSubmit,
-    errors,
     reset,
     control,
     setValue,
     getValues,
-    formState,
+    formState: { errors, isDirty },
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -60,24 +55,22 @@ export const EventForm = (props) => {
 
   useEffect(() => {
     if (props.edit) {
-      setTimeout(() =>
-        setValue([
-          { id: props.id },
-          { title: props.title },
-          { startDate: props.startDate },
-          { description: props.description },
-          { checkedDays: props.checkedDays },
-          { checkedMonths: props.checkedMonths },
-          { checkedYears: props.checkedYears },
-          { eventEnded: props.eventEnded },
-          { annualEvent: props.annualEvent },
-          { lastEditedDate: props.lastEditedDate },
-          { eventTags: props.tags },
-        ])
-      );
+      setTimeout(() => {
+        setValue("id", props.id);
+        setValue("title", props.title);
+        setValue("startDate", props.startDate);
+        setValue("description", props.description);
+        setValue("checkedDays", props.checkedDays);
+        setValue("checkedMonths", props.checkedMonths);
+        setValue("checkedYears", props.checkedYears);
+        setValue("eventEnded", props.eventEnded);
+        setValue("annualEvent", props.annualEvent);
+        setValue("lastEditedDate", props.lastEditedDate);
+        setValue("eventTags", props.tags);
+      });
     }
     if (props.eventEnded) {
-      setTimeout(() => setValue([{ endDate: props.endDate }]));
+      setTimeout(() => setValue("endDate", props.endDate));
     }
   }, [setValue, props]);
 
@@ -119,16 +112,18 @@ export const EventForm = (props) => {
 
   const assignTags = (tags) => {
     let activeTags = [];
-    tags.forEach((tag) => {
-      if (tag.newTag === undefined && tag.tagName === undefined) {
-        activeTags.push(tag);
-      } else if (tag.newTag === undefined) {
-        activeTags.push(tag.tagName);
-      } else {
-        dispatch(eventActions.createEventTag({ tagName: tag.newTag }));
-        activeTags.push(tag.newTag);
-      }
-    });
+    if (tags) {
+      tags.forEach((tag) => {
+        if (tag.newTag === undefined && tag.tagName === undefined) {
+          activeTags.push(tag);
+        } else if (tag.newTag === undefined) {
+          activeTags.push(tag.tagName);
+        } else {
+          dispatch(eventActions.createEventTag({ tagName: tag.newTag }));
+          activeTags.push(tag.newTag);
+        }
+      });
+    }
     return activeTags;
   };
 
@@ -145,92 +140,105 @@ export const EventForm = (props) => {
         spacing={1}
         container
         direction="row"
-        justify="space-between"
+        justifyContent="space-between"
         alignItems="stretch"
       >
         <Grid item xs={12}>
           <Controller
-            as={TextField}
-            fullWidth
-            InputProps={{
-              disableUnderline: true,
-            }}
-            color="primary"
-            variant="filled"
-            label={
-              errors.title && errors.title.type === "required"
-                ? "Give a title to this Event"
-                : "Title"
-            }
             name="title"
-            margin="none"
-            id="title"
-            size="small"
-            placeholder="What happened"
-            rules={{ required: true, maxLength: 30 }}
             control={control}
-            error={errors.title ? true : false}
-            helperText={
-              errors.title &&
-              errors.title.type === "maxLength" &&
-              "This title is very lenghty"
-            }
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Controller
-              as={KeyboardDatePicker}
-              name="startDate"
-              control={control}
-              autoOk
-              rules={{ required: true }}
-              error={errors.startDate ? true : false}
-              size="small"
-              InputProps={{
-                disableUnderline: true,
-              }}
-              inputVariant="filled"
-              variant="inline"
-              format="dd/MM/yyyy"
-              color="primary"
-              id="startDate"
-              label="Start date"
-              KeyboardButtonProps={{
-                "aria-label": "change start date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
-        </Grid>
-        <Grid item xs={6}>
-          {eventEndedSwitch && (
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Controller
-                as={KeyboardDatePicker}
-                name="endDate"
-                control={control}
-                autoOk
+            rules={{ required: true, maxLength: 30 }}
+            render={({ field, fieldState: { error } }) => (
+              <TextField
+                {...field}
+                fullWidth
                 InputProps={{
                   disableUnderline: true,
                 }}
+                color="primary"
+                variant="filled"
+                label={
+                  error && error.type === "required"
+                    ? "Give a title to this Event"
+                    : "Title"
+                }
+                margin="none"
+                id="title"
                 size="small"
-                inputVariant="filled"
+                placeholder="What happened"
+                error={!!error}
+                helperText={
+                  error &&
+                  error.type === "maxLength" &&
+                  "This title is very lengthy"
+                }
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Controller
+              name="startDate"
+              control={control}
+              rules={{ required: true }}
+              render={({ field, fieldState: { error } }) => (
+                <DatePicker
+                  {...field}
+                  label="Start date"
+                  inputFormat="dd/MM/yyyy"
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      size="small"
+                      variant="filled"
+                      InputProps={{
+                        ...params.InputProps,
+                        disableUnderline: true,
+                      }}
+                      error={!!error}
+                    />
+                  )}
+                />
+              )}
+            />
+          </LocalizationProvider>
+        </Grid>
+        <Grid item xs={6}>
+          {eventEndedSwitch && (
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <Controller
+                name="endDate"
+                control={control}
                 rules={{
                   required: true,
                   validate: validateEndDate,
                 }}
-                error={errors.endDate ? true : false}
-                helperText={errors.endDate && "Event start is after this date"}
-                variant="inline"
-                format="dd/MM/yyyy"
-                color="secondary"
-                id="endDate"
-                label="End date"
-                KeyboardButtonProps={{
-                  "aria-label": "change end date",
-                }}
+                render={({ field, fieldState: { error } }) => (
+                  <DatePicker
+                    {...field}
+                    label="End date"
+                    inputFormat="dd/MM/yyyy"
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth
+                        size="small"
+                        variant="filled"
+                        color="secondary"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                        error={!!error}
+                        helperText={error && "Event start is after this date"}
+                      />
+                    )}
+                  />
+                )}
               />
-            </MuiPickersUtilsProvider>
+            </LocalizationProvider>
           )}
         </Grid>
         <Grid item xs={7}>
@@ -240,12 +248,15 @@ export const EventForm = (props) => {
               <FormControlLabel
                 control={
                   <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
                     name="checkedDays"
-                    id="checkedDays"
-                    color="primary"
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        {...field}
+                        checked={field.value}
+                        color="primary"
+                      />
+                    )}
                   />
                 }
                 label="Days"
@@ -253,12 +264,15 @@ export const EventForm = (props) => {
               <FormControlLabel
                 control={
                   <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
                     name="checkedMonths"
-                    id="checkedMonths"
-                    color="primary"
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        {...field}
+                        checked={field.value}
+                        color="primary"
+                      />
+                    )}
                   />
                 }
                 label="Months"
@@ -266,12 +280,15 @@ export const EventForm = (props) => {
               <FormControlLabel
                 control={
                   <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
                     name="checkedYears"
-                    id="checkedYears"
-                    color="primary"
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        {...field}
+                        checked={field.value}
+                        color="primary"
+                      />
+                    )}
                   />
                 }
                 label="Years"
@@ -285,12 +302,15 @@ export const EventForm = (props) => {
               <FormControlLabel
                 control={
                   <Controller
-                    as={Switch}
-                    type="checkbox"
-                    control={control}
                     name="eventEnded"
-                    id="eventEnded"
-                    color="secondary"
+                    control={control}
+                    render={({ field }) => (
+                      <Switch
+                        {...field}
+                        checked={field.value}
+                        color="secondary"
+                      />
+                    )}
                   />
                 }
                 label="End event"
@@ -298,12 +318,15 @@ export const EventForm = (props) => {
               <FormControlLabel
                 control={
                   <Controller
-                    as={Checkbox}
-                    type="checkbox"
-                    control={control}
                     name="annualEvent"
-                    id="annualEvent"
-                    color="secondary"
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        {...field}
+                        checked={field.value}
+                        color="secondary"
+                      />
+                    )}
                   />
                 }
                 label="Annual Event"
@@ -313,36 +336,37 @@ export const EventForm = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Controller
-            as={TextField}
-            control={control}
-            color="primary"
-            size="small"
-            fullWidth
-            InputProps={{
-              disableUnderline: true,
-            }}
-            multiline
-            variant="filled"
             name="description"
-            id="description"
-            label={
-              errors.title && errors.title.type === "maxLength"
-                ? "Add the excess information from the title here"
-                : "Description"
-            }
-            placeholder="The details"
+            control={control}
+            render={({ field, fieldState: { error } }) => (
+              <TextField
+                {...field}
+                color="primary"
+                size="small"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                }}
+                multiline
+                variant="filled"
+                id="description"
+                label={
+                  error && error.type === "maxLength"
+                    ? "Add the excess information from the title here"
+                    : "Description"
+                }
+                placeholder="The details"
+              />
+            )}
           />
         </Grid>
         <Grid item xs={12}>
           <Controller
-            id="eventTags"
             name="eventTags"
             control={control}
-            onChange={(event) => {
-              return event[1];
-            }}
-            as={
+            render={({ field: { onChange, value, ...field } }) => (
               <Autocomplete
+                {...field}
                 multiple
                 freeSolo
                 blurOnSelect
@@ -351,67 +375,46 @@ export const EventForm = (props) => {
                 selectOnFocus
                 limitTags={3}
                 ChipProps={{ color: "secondary", size: "small" }}
-                /* ChipProps={(eventTagOptions) => {
-                    let existingTag = eventTagOptions.filter(
-                      ((opt) => color: opt.colour)
-                    );
-                  }} */
                 options={eventTagOptions}
+                value={value || []}
+                onChange={(_, data) => onChange(data)}
                 filterOptions={(options, params) => {
                   const filtered = filter(options, params);
                   let existingTag = options.filter((opt) =>
                     TextUtils.TextCompare(opt.tagName, params.inputValue)
                   );
-                  // Suggest the creation of a new value
                   if (params.inputValue !== "" && existingTag.length === 0) {
                     filtered.push({
                       newTag: params.inputValue,
                       tagName: `Add "${params.inputValue}"`,
                     });
                   }
-
                   return filtered;
                 }}
                 getOptionLabel={(option) => {
-                  // Value selected with enter, right from the input
                   if (typeof option === "string") {
                     return option;
                   }
-                  // Add "xxx" option created dynamically
                   if (option.newTag) {
                     return option.newTag;
                   }
-                  // Regular option
                   return option.tagName;
                 }}
-                renderOption={(option) => option.tagName}
-                //defaultValue={[]}
+                renderOption={(props, option) => (
+                   <li {...props}>{option.tagName}</li>
+                )}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     variant="filled"
                     label="Tags"
-                    /* InputProps={{
-                        disableUnderline: true,
-                      }} */
                     color="primary"
                     size="medium"
                     placeholder="Assign tags"
                   />
                 )}
-                /* renderTags={(value, getTagProps) =>
-                    value.map((option, index) => (
-                      <Chip
-                        color="primary"
-                        variant="default"
-                        label={option.tagName}
-                        size="small"
-                        {...getTagProps({ index })}
-                      />
-                    ))
-                  } */
               />
-            }
+            )}
           />
         </Grid>
         <Grid item xs="auto">
@@ -419,7 +422,6 @@ export const EventForm = (props) => {
             <Button
               variant="contained"
               color="secondary"
-              //style={{ borderRadius: 10 }}
               id="cancel"
               type="reset"
               size="medium"
@@ -429,12 +431,11 @@ export const EventForm = (props) => {
               Cancel
             </Button>
           ) : (
-            formState.dirty && (
+            isDirty && (
               <Button
                 variant="text"
                 color="secondary"
                 id="clear"
-                //style={{ borderRadius: 10 }}
                 size="medium"
                 type="reset"
                 onClick={() => {
@@ -449,8 +450,8 @@ export const EventForm = (props) => {
         </Grid>
         <Grid item xs="auto">
           <Button
-            hidden={!formState.dirty}
-            //style={{ borderRadius: 10 }}
+            // hidden={!isDirty} // hidden prop is not standard in MUI v5 Button, use sx or conditional rendering
+            sx={{ display: !isDirty ? 'none' : 'inline-flex' }}
             variant="contained"
             color="primary"
             name="saveEvent"

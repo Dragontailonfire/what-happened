@@ -1,6 +1,6 @@
 import React from "react";
-import SnoozeIcon from "@material-ui/icons/SnoozeRounded";
-import { makeStyles } from "@material-ui/core/styles";
+import SnoozeIcon from "@mui/icons-material/SnoozeRounded";
+import { makeStyles } from "@mui/styles";
 import {
   List,
   ListItem,
@@ -10,7 +10,7 @@ import {
   ListSubheader,
   ListItemAvatar,
   Avatar,
-} from "@material-ui/core";
+} from "@mui/material";
 
 export default function NotificationEventItem() {
   const useStyles = makeStyles((theme) => ({

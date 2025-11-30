@@ -3,51 +3,41 @@ import { useSelector, useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import * as eventActions from "../redux/actions/eventItemActions";
 import * as appActions from "../redux/actions/appSettingsActions";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Chip from "@material-ui/core/Chip";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Chip from "@mui/material/Chip";
 import AddTagForm from "./common/AddTagForm";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/EditRounded";
-import DoneIcon from "@material-ui/icons/DoneRounded";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutlineRounded";
-import LabelIcon from "@material-ui/icons/LabelTwoTone";
-import { green } from "@material-ui/core/colors";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import Box from "@mui/material/Box";
+import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/EditRounded";
+import DoneIcon from "@mui/icons-material/DoneRounded";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutlineRounded";
+import LabelIcon from "@mui/icons-material/LabelTwoTone";
+import { green } from "@mui/material/colors";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import DeleteConfirmationDialog from "./common/DeleteConfirmationDialog";
-import { StyleSheet, css } from "aphrodite";
-import swing from "react-animations/lib/swing";
-import pulse from "react-animations/lib/pulse";
+import { keyframes } from "@emotion/react";
 
-const styles = StyleSheet.create({
-  iconEffectDelete: {
-    animationName: pulse,
-    animationDuration: "1s",
-    animationIterationCount: "infinite",
-  },
-  iconEffectEdit: {
-    ":hover": {
-      animationName: swing,
-      animationDuration: "0.7s",
-      backgroundColor: "transparent",
-    },
-  },
-});
+const pulse = keyframes`
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+`;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "center",
-  },
-}));
+const swing = keyframes`
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(5deg); }
+  80% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+`;
+
+
 
 export default function EventTagList() {
   const dispatch = useDispatch();
-  const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const settings = useSelector((state) => state.appSettings);
   const [selectedTags, setSelectedTags] = useState(settings.filters);
@@ -92,7 +82,7 @@ export default function EventTagList() {
     );
   };
   return (
-    <div className={classes.roojt}>
+    <Box sx={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
       <List component="div" aria-label="filters">
         <ListItem
           button={selectedTags.length > 0}
@@ -114,7 +104,12 @@ export default function EventTagList() {
 
           <ListItemSecondaryAction>
             <IconButton
-              className={css(styles.iconEffectEdit)}
+              sx={{
+                "&:hover": {
+                  animation: `${swing} 0.7s`,
+                  backgroundColor: "transparent",
+                },
+              }}
               edge="end"
               onClick={() => {
                 setEditMode(!editMode);
@@ -171,7 +166,9 @@ export default function EventTagList() {
                 }}
               >
                 <IconButton
-                  className={css(styles.iconEffectDelete)}
+                  sx={{
+                    animation: `${pulse} 1s infinite`,
+                  }}
                   edge="end"
                   aria-label="delete Tag"
                 >
@@ -189,7 +186,7 @@ export default function EventTagList() {
         open={openDeleteDialog}
         handleClose={handleDeleteDialogClose}
       />
-    </div>
+    </Box>
   );
 }
 

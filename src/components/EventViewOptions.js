@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as appActions from "../redux/actions/appSettingsActions";
-import Grid from "@material-ui/core/Grid";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
-import ArchiveIcon from "@material-ui/icons/ArchiveTwoTone";
-import FavouriteIcon from "@material-ui/icons/FavoriteTwoTone";
-import DoneAllIcon from "@material-ui/icons/DoneAllTwoTone";
-import { green, pink, blueGrey } from "@material-ui/core/colors";
+import Grid from "@mui/material/Grid";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import ArchiveIcon from "@mui/icons-material/ArchiveTwoTone";
+import FavouriteIcon from "@mui/icons-material/FavoriteTwoTone";
+import DoneAllIcon from "@mui/icons-material/DoneAllTwoTone";
+import { green, pink, blueGrey } from "@mui/material/colors";
 
 export const EventViewOptions = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const EventViewOptions = () => {
 
   return (
     <>
-      <Grid container direction="column" justify="center" alignItems="center">
+      <Grid container direction="column" justifyContent="center" alignItems="center">
         <Grid item xs="auto">
           <ToggleButtonGroup
             value={eventStateView}

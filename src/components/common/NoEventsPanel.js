@@ -1,13 +1,13 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import ArchiveIcon from "@material-ui/icons/ArchiveTwoTone";
-import FavouriteIcon from "@material-ui/icons/FavoriteTwoTone";
-import DoneAllIcon from "@material-ui/icons/DoneAllTwoTone";
-import EventIcon from "@material-ui/icons/EventTwoTone";
-import { green, blueGrey, red } from "@material-ui/core/colors";
+import { makeStyles } from "@mui/styles";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import ArchiveIcon from "@mui/icons-material/ArchiveTwoTone";
+import FavouriteIcon from "@mui/icons-material/FavoriteTwoTone";
+import DoneAllIcon from "@mui/icons-material/DoneAllTwoTone";
+import EventIcon from "@mui/icons-material/EventTwoTone";
+import { green, blueGrey, red } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {

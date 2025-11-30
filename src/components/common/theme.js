@@ -1,9 +1,9 @@
-import { createMuiTheme } from "@material-ui/core/styles";
-import { common, grey, blueGrey } from "@material-ui/core/colors";
+import { createTheme } from "@mui/material/styles";
+import { common, grey, blueGrey } from "@mui/material/colors";
 
-export const lightTheme = createMuiTheme({
+export const lightTheme = createTheme({
   palette: {
-    type: "light",
+    mode: "light",
     primary: {
       main: "#4cba71",
       //main: "#9745ff",
@@ -15,50 +15,58 @@ export const lightTheme = createMuiTheme({
     background: { default: grey[200], paper: common["white"] }, //common["white"]
   },
 
-  props: {
+  components: {
     MuiIconButton: {
-      disableFocusRipple: false,
-      disableRipple: false,
-    },
-    MuiButton: {
-      disableElevation: false,
-    },
-  },
-  overrides: {
-    MuiButton: {
-      contained: {
-        //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        borderRadius: 0,
-        //color: "black",
-        //padding: "0 30px",
+      defaultProps: {
+        disableFocusRipple: false,
+        disableRipple: false,
       },
-      text: {
-        //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        borderRadius: 0,
-        //color: "black",
-        //padding: "0 30px",
+    },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: false,
+      },
+      styleOverrides: {
+        contained: {
+          //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
+          borderRadius: 0,
+          //color: "black",
+          //padding: "0 30px",
+        },
+        text: {
+          //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
+          borderRadius: 0,
+          //color: "black",
+          //padding: "0 30px",
+        },
       },
     },
     MuiCard: {
-      root: { borderRadius: 0 },
+      styleOverrides: {
+        root: { borderRadius: 0 },
+      },
     },
     MuiPaper: {
-      root: { borderRadius: 0 },
+      styleOverrides: {
+        root: { borderRadius: 0 },
+      },
     },
     MuiTextField: {
-      root: {
-        borderRadius: 0,
-        //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
-        background: grey[300],
-        disableUnderline: false,
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
+          background: grey[300],
+          // disableUnderline: false, // Note: disableUnderline is a prop, not style. Handled in component usage or defaultProps if needed.
+        },
       },
     },
   },
 });
 
-export const darkTheme = createMuiTheme({
+export const darkTheme = createTheme({
   palette: {
-    type: "dark",
+    mode: "dark",
     primary: {
       main: "#4cba71",
       //main: "#9745ff",
@@ -70,42 +78,50 @@ export const darkTheme = createMuiTheme({
     //background: { default: grey["A400"], paper: grey[800] },
     background: { default: blueGrey[900], paper: blueGrey[800] },
   },
-  props: {
+  components: {
     MuiIconButton: {
-      disableFocusRipple: false,
-      disableRipple: false,
-    },
-    MuiButton: {
-      disableElevation: false,
-    },
-  },
-  overrides: {
-    MuiButton: {
-      contained: {
-        //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        borderRadius: 0,
-        //color: "black",
-        //padding: "0 30px",
+      defaultProps: {
+        disableFocusRipple: false,
+        disableRipple: false,
       },
-      text: {
-        //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
-        borderRadius: 0,
-        //color: "black",
-        //padding: "0 30px",
+    },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: false,
+      },
+      styleOverrides: {
+        contained: {
+          //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
+          borderRadius: 0,
+          //color: "black",
+          //padding: "0 30px",
+        },
+        text: {
+          //background: "linear-gradient(45deg, #FE6B8B 30%, #9745ff 90%)",
+          borderRadius: 0,
+          //color: "black",
+          //padding: "0 30px",
+        },
       },
     },
     MuiCard: {
-      root: { borderRadius: 0 },
+      styleOverrides: {
+        root: { borderRadius: 0 },
+      },
     },
     MuiPaper: {
-      root: { borderRadius: 0 },
+      styleOverrides: {
+        root: { borderRadius: 0 },
+      },
     },
     MuiTextField: {
-      root: {
-        borderRadius: 0,
-        //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
-        background: blueGrey[800],
-        disableUnderline: false,
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          //background: "linear-gradient(45deg, #45ff97 20%, #9745ff 90%)",
+          background: blueGrey[800],
+          // disableUnderline: false,
+        },
       },
     },
   },

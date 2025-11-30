@@ -2,96 +2,63 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import * as eventActions from "../redux/actions/eventItemActions";
-import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import Card from "@material-ui/core/Card";
-import Tooltip from "@material-ui/core/Tooltip";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import ArchiveIcon from "@material-ui/icons/ArchiveOutlined";
-import UnarchiveSharpIcon from "@material-ui/icons/UnarchiveTwoTone";
-import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
-import EditIcon from "@material-ui/icons/EditTwoTone";
-import FavouriteIcon from "@material-ui/icons/FavoriteTwoTone";
-import DoneIcon from "@material-ui/icons/DoneRounded";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMoreRounded";
-import LabelIcon from "@material-ui/icons/LabelRounded";
-import PinnedIcon from "@material-ui/icons/PinDropTwoTone";
-import PinIcon from "@material-ui/icons/RoomTwoTone";
-import { pink, green } from "@material-ui/core/colors";
+import Card from "@mui/material/Card";
+import Tooltip from "@mui/material/Tooltip";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import ArchiveIcon from "@mui/icons-material/ArchiveOutlined";
+import UnarchiveSharpIcon from "@mui/icons-material/UnarchiveTwoTone";
+import DeleteIcon from "@mui/icons-material/DeleteTwoTone";
+import EditIcon from "@mui/icons-material/EditTwoTone";
+import FavouriteIcon from "@mui/icons-material/FavoriteTwoTone";
+import DoneIcon from "@mui/icons-material/DoneRounded";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMoreRounded";
+import LabelIcon from "@mui/icons-material/LabelRounded";
+
+import PinIcon from "@mui/icons-material/RoomTwoTone";
+import { pink, green } from "@mui/material/colors";
 import _ from "lodash";
 import DeleteConfirmationDialog from "./common/DeleteConfirmationDialog";
-import { StyleSheet, css } from "aphrodite";
-import jello from "react-animations/lib/jello";
-import swing from "react-animations/lib/swing";
-import flip from "react-animations/lib/flip";
-import bounceOut from "react-animations/lib/bounceOut";
+import { keyframes } from "@emotion/react";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    //borderRadius: 10,
-    transition: "0.1s",
-    "&:hover": {
-      //transform: "translateY(-10px)",
-      //transform: "scale(1.01)",
-    },
-    //borderColor: theme.palette.background.default,
-    padding: -30,
-  },
-  editMode: {
-    transform: "scale(1.07)",
-  },
+const jello = keyframes`
+  from, 11.1%, to { transform: translate3d(0, 0, 0); }
+  22.2% { transform: skewX(-12.5deg) skewY(-12.5deg); }
+  33.3% { transform: skewX(6.25deg) skewY(6.25deg); }
+  44.4% { transform: skewX(-3.125deg) skewY(-3.125deg); }
+  55.5% { transform: skewX(1.5625deg) skewY(1.5625deg); }
+  66.6% { transform: skewX(-0.78125deg) skewY(-0.78125deg); }
+  77.7% { transform: skewX(0.390625deg) skewY(0.390625deg); }
+  88.8% { transform: skewX(-0.1953125deg) skewY(-0.1953125deg); }
+`;
 
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.short,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  tags: { marginLeft: "auto" },
-  selectedFavouriteIcon: { color: pink["A400"] },
-}));
+const swing = keyframes`
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(5deg); }
+  80% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+`;
 
-const styles = StyleSheet.create({
-  iconEffect: {
-    ":hover": {
-      animationName: jello,
-      animationIterationCount: 2,
-      animationDuration: "0.7s",
-      backgroundColor: "transparent",
-    },
-  },
-  iconEffectDelete: {
-    ":hover": {
-      animationName: bounceOut,
-      animationDuration: "0.7s",
-      backgroundColor: "transparent",
-    },
-  },
-  iconEffectArchive: {
-    ":hover": {
-      animationName: flip,
-      animationDuration: "0.7s",
-      backgroundColor: "transparent",
-    },
-  },
-  iconEffectEdit: {
-    ":hover": {
-      animationName: swing,
-      animationDuration: "0.7s",
-      backgroundColor: "transparent",
-    },
-  },
-});
+const flip = keyframes`
+  from { transform: perspective(400px) rotate3d(0, 1, 0, -360deg); animation-timing-function: ease-out; }
+  40% { transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg); animation-timing-function: ease-out; }
+  50% { transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg); animation-timing-function: ease-in; }
+  80% { transform: perspective(400px) scale3d(.95, .95, .95); animation-timing-function: ease-in; }
+  to { transform: perspective(400px); animation-timing-function: ease-in; }
+`;
+
+const bounceOut = keyframes`
+  20% { transform: scale3d(.9, .9, .9); }
+  50%, 55% { opacity: 1; transform: scale3d(1.1, 1.1, 1.1); }
+  to { opacity: 0; transform: scale3d(.3, .3, .3); }
+`;
 
 export const EventItemCard = (props) => {
   const dispatch = useDispatch();
@@ -117,7 +84,6 @@ export const EventItemCard = (props) => {
     setEventToDelete("");
   };
 
-  const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   const handleEditClick = () => {
@@ -158,10 +124,11 @@ export const EventItemCard = (props) => {
       <Card
         square
         id={"event-item-" + props.id}
-        //className={classes.root}
-        className={clsx(classes.root, {
-          [classes.editMode]: expanded,
-        })}
+        sx={{
+          transition: "0.1s",
+          padding: -30,
+          transform: expanded ? "scale(1.07)" : "none",
+        }}
         variant="elevation"
         elevation={0}
       >
@@ -231,7 +198,12 @@ export const EventItemCard = (props) => {
               hidden={props.archived}
               name="editEvent"
               id={"event-edit-button-" + props.id}
-              className={css(styles.iconEffectEdit)}
+              sx={{
+                "&:hover": {
+                  animation: `${swing} 0.7s`,
+                  backgroundColor: "transparent",
+                },
+              }}
               aria-expanded={expanded}
               onClick={handleEditClick}
             >
@@ -254,14 +226,19 @@ export const EventItemCard = (props) => {
               disableTouchRipple
               hidden={props.archived}
               id={"event-favourite-button-" + props.id}
-              className={css(styles.iconEffect)}
+              sx={{
+                "&:hover": {
+                  animation: `${jello} 0.7s 2`,
+                  backgroundColor: "transparent",
+                },
+              }}
               aria-label="favourite event"
               onClick={handleFavouriteClick}
             >
               {props.favourite ? (
                 <FavouriteIcon
                   fontSize="large"
-                  className={classes.selectedFavouriteIcon}
+                  sx={{ color: pink["A400"] }}
                 />
               ) : (
                 <FavouriteIcon fontSize="inherit" />
@@ -278,7 +255,12 @@ export const EventItemCard = (props) => {
               disableRipple
               disableFocusRipple
               disableTouchRipple
-              className={css(styles.iconEffectArchive)}
+              sx={{
+                "&:hover": {
+                  animation: `${flip} 0.7s`,
+                  backgroundColor: "transparent",
+                },
+              }}
               id={"event-archive-button-" + props.id}
               onClick={handleArchiveClick}
               aria-label="archive event"
@@ -295,7 +277,12 @@ export const EventItemCard = (props) => {
               disableRipple
               disableFocusRipple
               disableTouchRipple
-              className={css(styles.iconEffectDelete)}
+              sx={{
+                "&:hover": {
+                  animation: `${bounceOut} 0.7s`,
+                  backgroundColor: "transparent",
+                },
+              }}
               id={"event-delete-button-" + props.id}
               aria-label="delete event"
               onClick={() => {
@@ -306,7 +293,7 @@ export const EventItemCard = (props) => {
               <DeleteIcon fontSize="inherit" />
             </IconButton>
           </Tooltip>
-          <Typography className={classes.tags}>
+          <Typography sx={{ marginLeft: "auto" }}>
             {props.tags.map((tag) => (
               <Tooltip key={tag.tagName} title={tag.tagName} arrow interactive>
                 <LabelIcon htmlColor={tag.colour} fontSize="large" />
@@ -315,9 +302,12 @@ export const EventItemCard = (props) => {
           </Typography>
 
           <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
+            sx={{
+              transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+              transition: (theme) => theme.transitions.create("transform", {
+                duration: theme.transitions.duration.short,
+              }),
+            }}
             onClick={() => {
               setExpanded(!expanded);
             }}
