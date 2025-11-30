@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as appActions from "../../redux/actions/appSettingsActions";
-import { Tooltip, IconButton, makeStyles } from "@material-ui/core";
-import LightModeIcon from "@material-ui/icons/WbSunnyTwoTone";
-import DarkModeIcon from "@material-ui/icons/NightsStayTwoTone";
+import { Tooltip, IconButton } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import LightModeIcon from "@mui/icons-material/WbSunnyTwoTone";
+import DarkModeIcon from "@mui/icons-material/NightsStayTwoTone";
 
 const useStyles = makeStyles((theme) => ({
   iconEffect: {

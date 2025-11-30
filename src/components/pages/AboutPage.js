@@ -1,11 +1,10 @@
 import React from "react";
 import {
-  ThemeProvider,
   CssBaseline,
   Container,
-  makeStyles,
   Button,
-} from "@material-ui/core";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import NavBar from "../Navbar";
 import SiteFooter from "../SiteFooter";
 import { Link } from "react-router-dom";
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AboutPage() {
   const classes = useStyles();
   return (
-    <ThemeProvider>
+    <>
       <CssBaseline />
       <NavBar />
       <div className={classes.offset} />
@@ -34,6 +33,6 @@ export default function AboutPage() {
         </Link>
       </Container>
       <SiteFooter />
-    </ThemeProvider>
+    </>
   );
 }

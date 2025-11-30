@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUpRounded";
-import { Zoom, Fab } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/AddTwoTone";
+import { makeStyles } from "@mui/styles";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUpRounded";
+import { Zoom, Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/AddTwoTone";
 import AddEventDialog from "./AddEventDialog";
-import FilterListIcon from "@material-ui/icons/FilterListRounded";
+import FilterListIcon from "@mui/icons-material/FilterListRounded";
 import ManageFilterDialog from "./ManageFilterDialog";
 
 const useStyles = makeStyles((theme) => ({

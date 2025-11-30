@@ -1,12 +1,12 @@
 import React from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { DialogActions, Button, Grid, TextField } from "@material-ui/core";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import { DialogActions, Button, Grid, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
-export default function AddEventDialog(props) {
-  const { handleSubmit, errors, control, register } = useForm({
+export default function LoginDialog(props) {
+  const { handleSubmit, formState: { errors }, control, register } = useForm({
     mode: "onChange",
   });
 
@@ -29,49 +29,56 @@ export default function AddEventDialog(props) {
             spacing={1}
             container
             direction="row"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="stretch"
           >
             <Grid item xs={12}>
               <Controller
-                as={TextField}
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                color="primary"
-                variant="filled"
-                label="Username"
                 name="username"
-                margin="none"
-                id="username"
-                fullWidth
-                rules={{ required: true }}
                 control={control}
-                error={errors.username ? true : false}
-                helperText={
-                  errors.username && "Enter the username and try again"
-                }
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    color="primary"
+                    variant="filled"
+                    label="Username"
+                    margin="none"
+                    id="username"
+                    fullWidth
+                    error={!!errors.username}
+                    helperText={
+                      errors.username && "Enter the username and try again"
+                    }
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12}>
               <Controller
-                as={TextField}
-                control={control}
-                color="primary"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                  type: "password",
-                }}
-                multiline
-                variant="filled"
                 name="password"
-                id="password"
-                label="Password"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    color="primary"
+                    fullWidth
+                    InputProps={{
+                      disableUnderline: true,
+                      type: "password",
+                    }}
+                    variant="filled"
+                    id="password"
+                    label="Password"
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12}>
-              <input type="password" name="phoneNumber" ref={register} />
+              <input type="password" name="phoneNumber" {...register("phoneNumber")} />
             </Grid>
           </Grid>
         </DialogContent>

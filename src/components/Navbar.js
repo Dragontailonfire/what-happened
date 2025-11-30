@@ -1,34 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import AppThemeToggler from "./common/appThemeToggler";
-import IconButton from "@material-ui/core/IconButton";
-import MainLogo from "@material-ui/icons/DashboardTwoTone";
-import { Slide, Button, Container } from "@material-ui/core";
+import IconButton from "@mui/material/IconButton";
+import MainLogo from "@mui/icons-material/DashboardTwoTone";
+import { Slide, Button, Container, Box } from "@mui/material";
 import NotificationPopup from "./common/NotificationPopup";
 import LoginDialog from "./common/LoginDialog";
 
-const useStyles = makeStyles((theme) => ({
-  scrollButton: {
-    position: "fixed",
-    bottom: theme.spacing(5),
-    right: theme.spacing(5),
-  },
-  offset: theme.mixins.toolbar,
-  navBarButton: { marginLeft: "auto" },
-  loginButton: {
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.light,
-  },
-}));
-
 export default function NavBar(props) {
-  const classes = useStyles();
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -51,12 +35,15 @@ export default function NavBar(props) {
                 </IconButton>
               </Link>
               <Typography variant="h6">What Happened?</Typography>
-              <Typography className={classes.navBarButton}>
+              <Typography sx={{ marginLeft: "auto" }} component="div">
                 <NotificationPopup />
                 <AppThemeToggler />
                 <Button
                   variant="contained"
-                  className={classes.loginButton}
+                  sx={{
+                    color: (theme) => theme.palette.primary.contrastText,
+                    backgroundColor: (theme) => theme.palette.primary.light,
+                  }}
                   color="primary"
                   onClick={() => {
                     setOpenLoginDialog(true);
@@ -69,7 +56,7 @@ export default function NavBar(props) {
           </Container>
         </AppBar>
       </HideOnScroll>
-      <div className={classes.offset} />
+      <Box sx={{ ...theme => theme.mixins.toolbar }} />
       <LoginDialog
         open={openLoginDialog}
         handleClose={handleLoginDialogClose}

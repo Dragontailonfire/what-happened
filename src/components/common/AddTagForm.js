@@ -1,34 +1,26 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
-import { makeStyles } from "@material-ui/core/styles";
+import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
 import * as eventActions from "../../redux/actions/eventItemActions";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/AddCircleTwoTone";
-import ClearIcon from "@material-ui/icons/RemoveCircleTwoTone";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/AddCircleTwoTone";
+import ClearIcon from "@mui/icons-material/RemoveCircleTwoTone";
 import _ from "lodash";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import * as TextUtils from "../../utilities/TextUtils";
-import { InputAdornment } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-}));
+import { InputAdornment } from "@mui/material";
 
 export default function AddTagForm() {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const {
     register,
     handleSubmit,
     reset,
-    formState,
-    errors,
-    clearError,
+    formState: { errors, isDirty },
+    clearErrors,
   } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -60,8 +52,13 @@ export default function AddTagForm() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={classes.root}>
+        <Box sx={{ display: 'flex' }}>
           <TextField
+            {...register("tagName", {
+              required: true,
+              maxLength: 10,
+              validate: validateTagName,
+            })}
             id="addTagText"
             name="tagName"
             size="small"
@@ -71,12 +68,12 @@ export default function AddTagForm() {
               disableUnderline: true,
               endAdornment: (
                 <InputAdornment position="end">
-                  {formState.dirty && errors.tagName ? (
+                  {isDirty && errors.tagName ? (
                     <IconButton
                       type="reset"
                       onClick={() => {
                         reset();
-                        clearError();
+                        clearErrors();
                       }}
                     >
                       <ClearIcon color="error" fontSize="large" />
@@ -89,13 +86,8 @@ export default function AddTagForm() {
                 </InputAdornment>
               ),
             }}
-            inputRef={register({
-              required: true,
-              maxLength: 10,
-              validate: validateTagName,
-            })}
             placeholder="Tag name"
-            error={errors.tagName ? true : false}
+            error={!!errors.tagName}
             label={
               errors.tagName && errors.tagName.type === "validate"
                 ? "You already have this Tag"
@@ -104,10 +96,10 @@ export default function AddTagForm() {
             helperText={
               errors.tagName &&
               errors.tagName.type === "maxLength" &&
-              "This tag is very lenghty"
+              "This tag is very lengthy"
             }
           />
-        </div>
+        </Box>
       </form>
     </>
   );

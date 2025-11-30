@@ -1,13 +1,12 @@
 import React from "react";
-//import { makeStyles } from "@material-ui/core/styles";
-import Popover from "@material-ui/core/Popover";
-import NotificationsActiveIcon from "@material-ui/icons/NotificationsActiveTwoTone";
-import IconButton from "@material-ui/core/IconButton";
+//import { makeStyles } from "@mui/styles";
+import Popover from "@mui/material/Popover";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActiveTwoTone";
+import IconButton from "@mui/material/IconButton";
 import NotificationEventItem from "../NotificationEventItem";
 //import NotificationEventItemLoader from "./NotificationEventItemLoader";
-import { Badge } from "@material-ui/core";
-import { StyleSheet, css } from "aphrodite";
-import shake from "react-animations/lib/headShake";
+import { Badge } from "@mui/material";
+import { keyframes } from "@emotion/react";
 
 /* const useStyles = makeStyles((theme) => ({
   typography: {
@@ -15,15 +14,14 @@ import shake from "react-animations/lib/headShake";
   },
 })); */
 
-const styles = StyleSheet.create({
-  iconEffect: {
-    ":hover": {
-      animationName: shake,
-      animationDuration: "0.7s",
-      backgroundColor: "transparent",
-    },
-  },
-});
+const shake = keyframes`
+  0% { transform: translateX(0); }
+  6.5% { transform: translateX(-6px) rotateY(-9deg); }
+  18.5% { transform: translateX(5px) rotateY(7deg); }
+  31.5% { transform: translateX(-3px) rotateY(-5deg); }
+  43.5% { transform: translateX(2px) rotateY(3deg); }
+  50% { transform: translateX(0); }
+`;
 
 export default function NotificationPopup() {
   //const classes = useStyles();
@@ -43,7 +41,12 @@ export default function NotificationPopup() {
   return (
     <>
       <IconButton
-        className={css(styles.iconEffect)}
+        sx={{
+          "&:hover": {
+            animation: `${shake} 0.7s`,
+            backgroundColor: "transparent",
+          },
+        }}
         aria-describedby={id}
         variant="contained"
         color="inherit"

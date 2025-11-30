@@ -1,23 +1,33 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import configureStore from "./redux/configureStore";
-import { Provider } from "react-redux";
+import { Provider as ReduxProvider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
+import { StyledEngineProvider, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { ThemeProvider as StylesThemeProvider } from "@mui/styles";
+import { lightTheme } from "./components/common/theme";
 
 const store = configureStore();
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <ReduxProvider store={store}>
+      <StyledEngineProvider injectFirst>
+        <MuiThemeProvider theme={lightTheme}>
+          <StylesThemeProvider theme={lightTheme}>
+            <Router>
+              <App />
+            </Router>
+          </StylesThemeProvider>
+        </MuiThemeProvider>
+      </StyledEngineProvider>
+    </ReduxProvider>
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
